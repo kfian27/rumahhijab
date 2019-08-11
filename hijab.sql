@@ -1,117 +1,106 @@
--- phpMyAdmin SQL Dump
--- version 4.8.4
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Aug 09, 2019 at 10:33 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.2.14
+/*
+SQLyog Ultimate v13.1.1 (64 bit)
+MySQL - 10.1.22-MariaDB : Database - hijab
+*********************************************************************
+*/
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+/*!40101 SET NAMES utf8 */;
 
+/*!40101 SET SQL_MODE=''*/;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`hijab` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
---
--- Database: `hijab`
---
+USE `hijab`;
 
--- --------------------------------------------------------
+/*Table structure for table `detail_invoice` */
 
---
--- Table structure for table `cabang`
---
-
-CREATE TABLE `cabang` (
-  `id_cabang` int(11) NOT NULL,
-  `nm_cabang` varchar(255) DEFAULT NULL,
-  `loc_cabang` varchar(255) DEFAULT NULL,
-  `st_cabang` smallint(6) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `cabang`
---
-
-INSERT INTO `cabang` (`id_cabang`, `nm_cabang`, `loc_cabang`, `st_cabang`) VALUES
-(1, 'utama', 'Jakarta', 1),
-(2, 'Jatim', 'Surabaya', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `detail_invoice`
---
+DROP TABLE IF EXISTS `detail_invoice`;
 
 CREATE TABLE `detail_invoice` (
-  `id_di` int(11) NOT NULL,
+  `id_di` int(11) NOT NULL AUTO_INCREMENT,
   `id_invoice` int(11) DEFAULT NULL,
   `id_produk` int(255) DEFAULT NULL,
   `qty_di` int(11) DEFAULT NULL,
   `total_di` varchar(255) DEFAULT NULL,
-  `st_di` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `st_di` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_di`),
+  KEY `fk_di_produk` (`id_produk`),
+  KEY `fk_di_invo` (`id_invoice`),
+  CONSTRAINT `fk_di_invo` FOREIGN KEY (`id_invoice`) REFERENCES `invoice` (`id_invoice`),
+  CONSTRAINT `fk_di_produk` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `detail_invoice`
---
+/*Data for the table `detail_invoice` */
 
-INSERT INTO `detail_invoice` (`id_di`, `id_invoice`, `id_produk`, `qty_di`, `total_di`, `st_di`) VALUES
-(1, 212, 8, 4, '40000', 'kirim');
+insert  into `detail_invoice`(`id_di`,`id_invoice`,`id_produk`,`qty_di`,`total_di`,`st_di`) values 
+(1,1,1,3,'60000','kirim'),
+(2,1,2,1,'30000','kirim'),
+(3,2,1,2,'40000','kirim'),
+(4,3,1,2,'40000','kirim'),
+(5,4,2,1,'30000','kirim'),
+(6,5,2,1,'30000','kirim'),
+(7,6,2,2,'60000','kirim'),
+(8,7,2,2,'60000','gudang');
 
--- --------------------------------------------------------
+/*Table structure for table `detail_invoice_tmp` */
 
---
--- Table structure for table `detail_invoice_tmp`
---
+DROP TABLE IF EXISTS `detail_invoice_tmp`;
 
 CREATE TABLE `detail_invoice_tmp` (
-  `id_di` int(11) NOT NULL,
+  `id_di` int(11) NOT NULL AUTO_INCREMENT,
   `id_invoice` int(11) DEFAULT NULL,
   `id_produk` int(255) DEFAULT NULL,
   `qty_di` int(11) DEFAULT NULL,
   `total_di` varchar(255) DEFAULT NULL,
-  `st_di` smallint(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `st_di` smallint(255) DEFAULT NULL,
+  PRIMARY KEY (`id_di`),
+  KEY `fk_di_produk` (`id_produk`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+/*Data for the table `detail_invoice_tmp` */
 
---
--- Table structure for table `gudang`
---
+/*Table structure for table `gudang` */
+
+DROP TABLE IF EXISTS `gudang`;
 
 CREATE TABLE `gudang` (
-  `id_gudang` int(11) NOT NULL,
+  `id_gudang` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
   `id_produk` int(11) DEFAULT NULL,
   `no_invoice` varchar(255) DEFAULT NULL,
   `jumlah_stok` int(11) DEFAULT NULL,
   `keterangan` varchar(50) DEFAULT NULL,
-  `up_gudang` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `up_gudang` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id_gudang`),
+  KEY `FK_RELATIONSHIP_7` (`id_user`),
+  KEY `FK_RELATIONSHIP_8` (`id_produk`),
+  CONSTRAINT `fk_gu_pro` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`),
+  CONSTRAINT `fk_gu_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `gudang`
---
+/*Data for the table `gudang` */
 
-INSERT INTO `gudang` (`id_gudang`, `id_user`, `id_produk`, `no_invoice`, `jumlah_stok`, `keterangan`, `up_gudang`) VALUES
-(1, 1, 8, NULL, 10, 'Barang masuk', '2019-08-09 08:13:29'),
-(2, 1, 8, '19/08/09/001', 4, 'Barang keluar', '2019-08-09 08:21:01');
+insert  into `gudang`(`id_gudang`,`id_user`,`id_produk`,`no_invoice`,`jumlah_stok`,`keterangan`,`up_gudang`) values 
+(1,1,1,NULL,20,'Barang masuk','2019-08-09 17:47:05'),
+(2,1,2,NULL,20,'Barang masuk','2019-08-09 17:47:14'),
+(3,1,1,'19/08/09/001',3,'Barang keluar','2019-08-10 10:06:09'),
+(4,1,2,'19/08/09/001',1,'Barang keluar','2019-08-10 10:06:25'),
+(5,1,1,'19/08/10/002',2,'Barang keluar','2019-08-10 10:43:05'),
+(6,1,1,'19/08/10/001',2,'Barang keluar','2019-08-10 10:43:39'),
+(7,1,2,'19/08/10/003',1,'Barang keluar','2019-08-10 13:42:20'),
+(8,1,2,'19/08/10/004',1,'Barang keluar','2019-08-10 13:42:22'),
+(9,4,2,'19/08/10/005',2,'Barang keluar','2019-08-10 18:46:26');
 
--- --------------------------------------------------------
+/*Table structure for table `invoice` */
 
---
--- Table structure for table `invoice`
---
+DROP TABLE IF EXISTS `invoice`;
 
 CREATE TABLE `invoice` (
-  `id_invoice` int(11) NOT NULL,
+  `id_invoice` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
   `no_invoice` varchar(255) DEFAULT NULL,
   `nm_invoice` varchar(255) DEFAULT NULL,
@@ -122,64 +111,65 @@ CREATE TABLE `invoice` (
   `diskon_invoice` varchar(255) DEFAULT NULL,
   `tgl_invoice` timestamp NULL DEFAULT NULL,
   `status_bayar` varchar(255) DEFAULT NULL,
-  `st_invoice` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `st_invoice` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_invoice`),
+  KEY `fk_relationship_3` (`id_user`),
+  CONSTRAINT `fk_in_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `invoice`
---
+/*Data for the table `invoice` */
 
-INSERT INTO `invoice` (`id_invoice`, `id_user`, `no_invoice`, `nm_invoice`, `alm_invoice`, `kota_invoice`, `byr_invoice`, `harga_invoice`, `diskon_invoice`, `tgl_invoice`, `status_bayar`, `st_invoice`) VALUES
-(212, 1, '19/08/09/001', 'guest', '-', '-', '40000', '39600', '1', '2019-08-09 08:19:51', 'Lunas', 'Proses kirim');
+insert  into `invoice`(`id_invoice`,`id_user`,`no_invoice`,`nm_invoice`,`alm_invoice`,`kota_invoice`,`byr_invoice`,`harga_invoice`,`diskon_invoice`,`tgl_invoice`,`status_bayar`,`st_invoice`) values 
+(1,1,'19/08/09/001','Reni','Cangkring Sidokare','Sidoarjo','100000','85500','5','2019-08-09 17:49:00','Lunas','Proses kirim'),
+(2,1,'19/08/10/001','Pelanggan','-','-','50000','40000','0','2019-08-10 10:39:53','Lunas','Proses kirim'),
+(3,1,'19/08/10/002','Pelanggan','-','-','50000','40000','0','2019-08-10 10:42:41','Lunas','Proses kirim'),
+(4,1,'19/08/10/003','Pelanggan','-','-','30000','30000','0','2019-08-10 11:13:47','Lunas','Proses kirim'),
+(5,1,'19/08/10/004','Pelanggan','-','-','40000','30000','0','2019-08-10 11:17:09','Lunas','Proses kirim'),
+(6,4,'19/08/10/005','Pelanggan','-','-','60000','60000','0','2019-08-10 18:45:55','Lunas','Proses kirim'),
+(7,4,'19/08/11/001','Pelanggan','-','-','60000','60000','0','2019-08-11 12:47:32','Lunas','Proses Gudang');
 
--- --------------------------------------------------------
+/*Table structure for table `kategori_produk` */
 
---
--- Table structure for table `kategori_produk`
---
+DROP TABLE IF EXISTS `kategori_produk`;
 
 CREATE TABLE `kategori_produk` (
-  `id_cat` int(11) NOT NULL,
+  `id_cat` int(11) NOT NULL AUTO_INCREMENT,
   `nm_cat` varchar(100) DEFAULT NULL,
-  `st_cat` smallint(6) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `st_cat` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`id_cat`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `kategori_produk`
---
+/*Data for the table `kategori_produk` */
 
-INSERT INTO `kategori_produk` (`id_cat`, `nm_cat`, `st_cat`) VALUES
-(7, 'Hijab', 1);
+insert  into `kategori_produk`(`id_cat`,`nm_cat`,`st_cat`) values 
+(1,'segi 4',1);
 
--- --------------------------------------------------------
+/*Table structure for table `pelanggan` */
 
---
--- Table structure for table `pelanggan`
---
+DROP TABLE IF EXISTS `pelanggan`;
 
 CREATE TABLE `pelanggan` (
-  `id_plg` int(11) NOT NULL,
+  `id_plg` int(11) NOT NULL AUTO_INCREMENT,
   `nm_plg` varchar(255) DEFAULT NULL,
   `alm_plg` varchar(255) DEFAULT NULL,
   `kota_plg` varchar(255) DEFAULT NULL,
-  `st_plg` smallint(6) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `st_plg` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`id_plg`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `pelanggan`
---
+/*Data for the table `pelanggan` */
 
-INSERT INTO `pelanggan` (`id_plg`, `nm_plg`, `alm_plg`, `kota_plg`, `st_plg`) VALUES
-(1, 'guest', '-', '-', 1);
+insert  into `pelanggan`(`id_plg`,`nm_plg`,`alm_plg`,`kota_plg`,`st_plg`) values 
+(1,'Pelanggan','-','-',1),
+(2,'Reni','Cangkring Sidokare','Sidoarjo',1),
+(3,'Rara','Cangkring Sidokare','Gresik',1);
 
--- --------------------------------------------------------
+/*Table structure for table `produk` */
 
---
--- Table structure for table `produk`
---
+DROP TABLE IF EXISTS `produk`;
 
 CREATE TABLE `produk` (
-  `id_produk` int(11) NOT NULL,
+  `id_produk` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
   `id_cat` int(11) DEFAULT NULL,
   `nm_produk` varchar(255) DEFAULT NULL,
@@ -188,242 +178,93 @@ CREATE TABLE `produk` (
   `harga_produk` varchar(255) DEFAULT NULL,
   `ft_produk` varchar(255) DEFAULT NULL,
   `up_produk` timestamp NULL DEFAULT NULL,
-  `st_produk` smallint(6) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `st_produk` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`id_produk`),
+  KEY `fk_relationship_1` (`id_cat`),
+  KEY `fk_relationship_6` (`id_user`),
+  CONSTRAINT `fk_pr_kp` FOREIGN KEY (`id_cat`) REFERENCES `kategori_produk` (`id_cat`),
+  CONSTRAINT `fk_pr_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `produk`
---
+/*Data for the table `produk` */
 
-INSERT INTO `produk` (`id_produk`, `id_user`, `id_cat`, `nm_produk`, `stok_produk`, `beli_produk`, `harga_produk`, `ft_produk`, `up_produk`, `st_produk`) VALUES
-(8, 1, 7, 'coba', 6, '5000', '10000', 'user.png', '2019-08-09 08:21:01', 1);
+insert  into `produk`(`id_produk`,`id_user`,`id_cat`,`nm_produk`,`stok_produk`,`beli_produk`,`harga_produk`,`ft_produk`,`up_produk`,`st_produk`) values 
+(1,1,1,'Saudi',13,'15000','20000','user.png','2019-08-10 10:43:39',1),
+(2,4,1,'Diamond',15,'20000','30000','user.png','2019-08-10 18:46:26',1);
 
--- --------------------------------------------------------
+/*Table structure for table `user` */
 
---
--- Table structure for table `user`
---
+DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `id_user` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `id_lvl` int(11) DEFAULT NULL,
-  `id_cabang` int(11) DEFAULT NULL,
+  `name_user` varchar(100) DEFAULT NULL,
   `username` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `ft_user` varchar(255) DEFAULT NULL,
   `last_user` timestamp NULL DEFAULT NULL,
-  `st_user` smallint(6) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `st_user` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`id_user`),
+  KEY `fk_relationship_5` (`id_lvl`),
+  CONSTRAINT `fk_relationship_5` FOREIGN KEY (`id_lvl`) REFERENCES `user_level` (`id_lvl`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `user`
---
+/*Data for the table `user` */
 
-INSERT INTO `user` (`id_user`, `id_lvl`, `id_cabang`, `username`, `password`, `email`, `ft_user`, `last_user`, `st_user`) VALUES
-(1, 1, 1, 'pimpinan', '202cb962ac59075b964b07152d234b70', NULL, 'user.png', '2019-08-09 08:32:25', 1),
-(2, 3, 2, 'gudang_jatim', '202446dd1d6028084426867365b0c7a1', NULL, 'user.png', '2019-07-27 04:15:42', 1),
-(3, 4, 2, 'kasir_jatim', 'c7911af3adbd12a035b289556d96470a', 'kasir@motto.co.id', 'user.png', '2019-07-27 04:15:18', 1);
+insert  into `user`(`id_user`,`id_lvl`,`name_user`,`username`,`password`,`email`,`ft_user`,`last_user`,`st_user`) values 
+(1,1,'Ririn','Admin','202cb962ac59075b964b07152d234b70',NULL,'user.png','2019-08-10 22:54:26',1),
+(2,3,'Lilo','Kasir1','202446dd1d6028084426867365b0c7a1',NULL,'user.png','2019-07-27 11:15:42',1),
+(3,3,'Jono','Kasir2','202cb962ac59075b964b07152d234b70','kasir@motto.co.id','user.png','2019-08-10 18:45:02',1),
+(4,2,'Uzi','Sukses','202cb962ac59075b964b07152d234b70',NULL,'user.png','2019-08-10 18:22:07',1);
 
--- --------------------------------------------------------
+/*Table structure for table `user_level` */
 
---
--- Table structure for table `user_level`
---
+DROP TABLE IF EXISTS `user_level`;
 
 CREATE TABLE `user_level` (
-  `id_lvl` int(11) NOT NULL,
+  `id_lvl` int(11) NOT NULL AUTO_INCREMENT,
   `nm_lvl` varchar(50) DEFAULT NULL,
-  `st_lvl` smallint(6) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `st_lvl` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`id_lvl`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `user_level`
---
+/*Data for the table `user_level` */
 
-INSERT INTO `user_level` (`id_lvl`, `nm_lvl`, `st_lvl`) VALUES
-(1, 'admin', 1),
-(2, 'pimpinan', 1),
-(3, 'gudang', 1),
-(4, 'kasir', 1);
+insert  into `user_level`(`id_lvl`,`nm_lvl`,`st_lvl`) values 
+(1,'admin',1),
+(2,'kepalatoko',1),
+(3,'kasir',1),
+(4,'ahlu',1);
 
---
--- Indexes for dumped tables
---
+/*Table structure for table `harian` */
 
---
--- Indexes for table `cabang`
---
-ALTER TABLE `cabang`
-  ADD PRIMARY KEY (`id_cabang`);
+DROP TABLE IF EXISTS `harian`;
 
---
--- Indexes for table `detail_invoice`
---
-ALTER TABLE `detail_invoice`
-  ADD PRIMARY KEY (`id_di`),
-  ADD KEY `fk_di_produk` (`id_produk`),
-  ADD KEY `fk_di_invo` (`id_invoice`);
+/*!50001 DROP VIEW IF EXISTS `harian` */;
+/*!50001 DROP TABLE IF EXISTS `harian` */;
 
---
--- Indexes for table `detail_invoice_tmp`
---
-ALTER TABLE `detail_invoice_tmp`
-  ADD PRIMARY KEY (`id_di`),
-  ADD KEY `fk_di_produk` (`id_produk`);
+/*!50001 CREATE TABLE  `harian`(
+ `no_invoice` varchar(255) ,
+ `nm_invoice` varchar(255) ,
+ `kota_invoice` varchar(255) ,
+ `nm_produk` varchar(255) ,
+ `qty_di` int(11) ,
+ `total_di` varchar(255) ,
+ `harga_invoice` varchar(255) ,
+ `diskon_invoice` varchar(255) ,
+ `tgl_invoice` timestamp 
+)*/;
 
---
--- Indexes for table `gudang`
---
-ALTER TABLE `gudang`
-  ADD PRIMARY KEY (`id_gudang`),
-  ADD KEY `FK_RELATIONSHIP_7` (`id_user`),
-  ADD KEY `FK_RELATIONSHIP_8` (`id_produk`);
+/*View structure for view harian */
 
---
--- Indexes for table `invoice`
---
-ALTER TABLE `invoice`
-  ADD PRIMARY KEY (`id_invoice`),
-  ADD KEY `fk_relationship_3` (`id_user`);
+/*!50001 DROP TABLE IF EXISTS `harian` */;
+/*!50001 DROP VIEW IF EXISTS `harian` */;
 
---
--- Indexes for table `kategori_produk`
---
-ALTER TABLE `kategori_produk`
-  ADD PRIMARY KEY (`id_cat`);
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `harian` AS select `i`.`no_invoice` AS `no_invoice`,`i`.`nm_invoice` AS `nm_invoice`,`i`.`kota_invoice` AS `kota_invoice`,`p`.`nm_produk` AS `nm_produk`,`di`.`qty_di` AS `qty_di`,`di`.`total_di` AS `total_di`,`i`.`harga_invoice` AS `harga_invoice`,`i`.`diskon_invoice` AS `diskon_invoice`,`i`.`tgl_invoice` AS `tgl_invoice` from ((`detail_invoice` `di` join `invoice` `i` on((`i`.`id_invoice` = `di`.`id_invoice`))) join `produk` `p` on((`p`.`id_produk` = `di`.`id_produk`))) */;
 
---
--- Indexes for table `pelanggan`
---
-ALTER TABLE `pelanggan`
-  ADD PRIMARY KEY (`id_plg`);
-
---
--- Indexes for table `produk`
---
-ALTER TABLE `produk`
-  ADD PRIMARY KEY (`id_produk`),
-  ADD KEY `fk_relationship_1` (`id_cat`),
-  ADD KEY `fk_relationship_6` (`id_user`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id_user`),
-  ADD KEY `fk_relationship_4` (`id_cabang`),
-  ADD KEY `fk_relationship_5` (`id_lvl`);
-
---
--- Indexes for table `user_level`
---
-ALTER TABLE `user_level`
-  ADD PRIMARY KEY (`id_lvl`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `cabang`
---
-ALTER TABLE `cabang`
-  MODIFY `id_cabang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `detail_invoice`
---
-ALTER TABLE `detail_invoice`
-  MODIFY `id_di` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `detail_invoice_tmp`
---
-ALTER TABLE `detail_invoice_tmp`
-  MODIFY `id_di` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `gudang`
---
-ALTER TABLE `gudang`
-  MODIFY `id_gudang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `invoice`
---
-ALTER TABLE `invoice`
-  MODIFY `id_invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
-
---
--- AUTO_INCREMENT for table `kategori_produk`
---
-ALTER TABLE `kategori_produk`
-  MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `pelanggan`
---
-ALTER TABLE `pelanggan`
-  MODIFY `id_plg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `produk`
---
-ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `user_level`
---
-ALTER TABLE `user_level`
-  MODIFY `id_lvl` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `detail_invoice`
---
-ALTER TABLE `detail_invoice`
-  ADD CONSTRAINT `fk_di_invo` FOREIGN KEY (`id_invoice`) REFERENCES `invoice` (`id_invoice`),
-  ADD CONSTRAINT `fk_di_produk` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`);
-
---
--- Constraints for table `gudang`
---
-ALTER TABLE `gudang`
-  ADD CONSTRAINT `FK_RELATIONSHIP_7` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `FK_RELATIONSHIP_8` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`);
-
---
--- Constraints for table `invoice`
---
-ALTER TABLE `invoice`
-  ADD CONSTRAINT `fk_relationship_3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
-
---
--- Constraints for table `produk`
---
-ALTER TABLE `produk`
-  ADD CONSTRAINT `fk_relationship_1` FOREIGN KEY (`id_cat`) REFERENCES `kategori_produk` (`id_cat`),
-  ADD CONSTRAINT `fk_relationship_6` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
-
---
--- Constraints for table `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `fk_relationship_4` FOREIGN KEY (`id_cabang`) REFERENCES `cabang` (`id_cabang`),
-  ADD CONSTRAINT `fk_relationship_5` FOREIGN KEY (`id_lvl`) REFERENCES `user_level` (`id_lvl`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
