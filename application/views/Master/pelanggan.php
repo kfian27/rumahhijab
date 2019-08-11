@@ -88,7 +88,6 @@ function tambah(){
   $('#detail').hide();
   $('#form-tambah').show();
   $('#tombol-tambah').attr('disabled',true);
-  $('#nm_cabang').val("");
 }
 function cancel(){
   $('#detail').show();

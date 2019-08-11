@@ -41,7 +41,7 @@ class muser extends CI_Controller {
             move_uploaded_file($_FILES['ft_user']['tmp_name'],"./assets/uploads/profil/" . basename($nama));
         }
         $insert_id = $this->Muser_model->insert(
-            $_POST['username'],md5($_POST['password']),$nama,$_POST['id_lvl'],$_POST['id_cabang']);
+            $_POST['name_user'],$_POST['username'],md5($_POST['password']),$nama,$_POST['id_lvl']);
       }
       else {
       $nama = $_POST['fotonya'];
@@ -51,7 +51,7 @@ class muser extends CI_Controller {
             move_uploaded_file($_FILES['ft_user']['tmp_name'],"./assets/uploads/profil/" . basename($nama));
         }
         $this->Muser_model->update(
-        	$_POST['id_user'],$_POST['username'],$nama,$_POST['id_lvl'],$_POST['id_cabang']);
+        	$_POST['id_user'],$_POST['name_user'],$_POST['username'],$nama,$_POST['id_lvl']);
       }
   }
 	public function get_detail($id_user)

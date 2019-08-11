@@ -13,6 +13,7 @@ class mproduk extends CI_Controller {
     }
 
 	public function index(){
+		$this->cek_login();
   		// $this->load->model('mproduk_model');
 		// $data['mproduk'] = $this->mproduk_model->get('status_mproduk = '.STATUS_ACTIVE);
 		// $this->load->view('admin/index.php');

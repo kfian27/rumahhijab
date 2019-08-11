@@ -33,6 +33,58 @@
   			 $query = $this->db->get();
   			 return $query->result();
         }
+        function get_c($where = "", $order = "", $limit=null, $offset=null, $selectcolumn = true){
+  			 $this->select($selectcolumn);
+  			 if($limit != null) $this->db->limit($limit, $offset);
+  			 if($where != "") $this->db->where($where);
+  			 $this->db->order_by($order);
+  			 $query = $this->db->get();
+  			 return $query->result();
+        }
+        public function selectdetail($selectcolumn=true){
+	    	if($selectcolumn){
+		    	$this->db->select('i.no_invoice AS no_invoice');
+		    	$this->db->select('i.nm_invoice AS nm_invoice');
+		    	$this->db->select('i.kota_invoice AS kota_invoice');
+		    	$this->db->select('p.nm_produk AS nm_produk');
+		    	$this->db->select('di.qty_di AS qty_di');
+		    	$this->db->select('di.total_di AS total_di');
+		    	$this->db->select('i.harga_invoice AS harga_invoice');
+		    	$this->db->select('i.diskon_invoice AS diskon_invoice');
+		    	$this->db->select('i.tgl_invoice AS tgl_invoice');
+	    	}
+            	$this->db->from('detail_invoice AS di');
+            	$this->db->join('invoice as i', 'i.id_invoice = di.id_invoice');
+            	$this->db->join('produk as p', 'p.id_produk = di.id_produk');
+		}
+        function get_detailhari($where = "", $order = "", $limit=null, $offset=null, $selectcolumn = true){
+  			 $this->selectdetail($selectcolumn);
+  			 if($limit != null) $this->db->limit($limit, $offset);
+  			 if($where != "") $this->db->where($where);
+  			 $this->db->order_by($order);
+  			 $query = $this->db->get();
+  			 return $query->result();
+        }
+        function get_invoicehari($tanggal)
+         {
+            $query = "SELECT
+						i.no_invoice AS no_invoice,
+						i.nm_invoice AS nm_invoice,
+						i.kota_invoice AS kota_invoice,
+						p.nm_produk AS nm_produk,
+						di.qty_di AS qty_di,
+						di.total_di AS total_di,
+						i.harga_invoice AS harga_invoice,
+						i.diskon_invoice AS diskon_invoice,
+						i.tgl_invoice AS tgl_invoice
+					FROM
+						detail_invoice di
+						JOIN invoice i ON i.id_invoice = di.id_invoice
+						JOIN produk p ON p.id_produk = di.id_produk 
+						WHERE DATE(tgl_invoice)  = '$tanggal'";
+            $sql = $this->db->query($query);
+            return $sql->result();
+         }
         function insert($no_invoice=false,$nm_invoice=false,$alm_invoice=false,$kota_invoice=false,$byr_invoice=false,$harga_invoice=false,$diskon_invoice=false,$status_bayar=false)
 		{
 			$data = array();
@@ -105,6 +157,17 @@
 			return $query->result();
 		}
 
+		function get_totalsemuainvoice(){
+			$sql = "select SUM(harga_invoice) AS total FROM invoice";
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
+
+		function get_totalsemuainvoice_c(){
+			$sql = "SELECT SUM(harga_invoice) AS total FROM invoice WHERE DATE(tgl_invoice) = CURDATE();";
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
 		function del_tmp($id_di){
 			$this->db->where('id_di', $id_di);
 			$this->db->delete('detail_invoice_tmp');

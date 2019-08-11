@@ -4,6 +4,12 @@
     <div class="x_panel">
         <div class="x_title">
           <h2> List Invoice</h2>
+          <div class="nav navbar-right ">
+            <a class="btn btn-info"><i class="fa fa-money"></i> 
+              <?php foreach ($totalsemuainvoice as $row): ?>
+              <?php echo $row->total; ?></a>
+            <?php endforeach ?>
+          </div>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -16,10 +22,8 @@
                       <th>#</th>
                       <th data-priority="1">No invoice</th>
                       <th>Nama Pembeli</th>
-                      <th>Alamat</th>
                       <th>Kota</th>
                       <th>Harga</th>
-                      <th>Diskon</th>
                       <th>Tanggal Pembelian</th>
                       <th>Status</th>
                       <th data-priority="2">Kasir</th>
@@ -32,10 +36,8 @@
                       <td ><?php echo $a; ?></td>
                       <td><?php echo $row->no_invoice; ?></td>
                       <td><?php echo $row->nm_invoice; ?></td>
-                      <td><?php echo $row->alm_invoice; ?></td>
                       <td><?php echo $row->kota_invoice; ?></td>
                       <td><?php echo $row->harga_invoice; ?></td>
-                      <td><?php echo $row->diskon_invoice; ?>%</td>
                       <td><?php echo $row->tgl_invoice; $a++; ?></td>
                       <td><?php echo $row->st_invoice; ?></td>
                       <td><?php echo $row->id_user; ?></td>

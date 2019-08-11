@@ -13,14 +13,15 @@
           <div class="row" id="detail">
             <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: center;">
               <br>
-              <h2 style="text-decoration: underline; font-weight: bold; font-style: italic;">Rumah Hijab</h2>
-              <h2 style="text-decoration: bold;">SURABAYA</h2>
-              <H2>031 2739 323</H2>
+              <h2 style="text-decoration: underline; font-weight: bold; font-style: italic;">Rumah Hijab Alifah</h2>
+              <h5 style="text-decoration: bold;">SIDOARJO - Gading Fajar</h5>
+              <H5>0857-3142-2142</H5>
+              <h5>0857-3633-4412</H5>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: center;">
               <table height="50px;" class="table-bordered" style="text-align: center; font-size: 12pt; margin-bottom: 20px;" cellpadding="5" cellspacing="2" width="100%">
                   <tr>
-                    <td>SBY</td>
+                    <td>SDA</td>
                     <td><?php echo date('d M Y');?></td>
                   </tr>
                   <tr>

@@ -24,14 +24,15 @@ class mgudang_model extends CI_Model {
 		public function select($selectcolumn=true){
 	    	if($selectcolumn){
 		    	$this->db_evin->select('id_gudang');
-		    	$this->db_evin->select('id_user');
-		    	$this->db_evin->select('id_produk');
+		    	$this->db_evin->select('gudang.id_user');
+		    	$this->db_evin->select('nm_produk');
 		    	$this->db_evin->select('no_invoice');
 		    	$this->db_evin->select('jumlah_stok');
 		    	$this->db_evin->select('keterangan');
 		    	$this->db_evin->select('up_gudang');
 	    	}
             	$this->db_evin->from('gudang');
+            	$this->db_evin->join('produk', 'produk.id_produk = gudang.id_produk');
 		}
 
 		/**

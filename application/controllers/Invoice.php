@@ -43,9 +43,19 @@ class invoice extends CI_Controller {
 	public function l_invoice()
 	{
 		$this->cek_login();
+		$data['totalsemuainvoice'] = $this->minvoice_model->get_totalsemuainvoice();
 		$data['invoice_detail'] = $this->minvoice_model->get();
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('invoice/l_invoice.php',$data);
+		$this->load->view('baseadmin/footer.php');
+	}
+	public function c_invoice()
+	{
+		$this->cek_login();
+		$data['totalsemuainvoice_c'] = $this->minvoice_model->get_totalsemuainvoice_c();
+		$data['invoice_detail_c'] = $this->minvoice_model->get_c('DATE(tgl_invoice) = CURDATE();');
+		$this->load->view('baseadmin/header.php');
+		$this->load->view('invoice/c_invoice.php',$data);
 		$this->load->view('baseadmin/footer.php');
 	}
 	public function d_invoice($nomer_invoice){
@@ -55,6 +65,72 @@ class invoice extends CI_Controller {
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('invoice/d_invoice.php',$data);
 		$this->load->view('baseadmin/footer.php');
+	}
+	public function ha_invoice()
+	{
+		$this->cek_login();
+		$data['invoice_detailhari'] = $this->minvoice_model->get_detailhari('DATE(tgl_invoice)  = "2019-08-10"');
+		$this->load->view('baseadmin/header.php');
+		$this->load->view('invoice/ha_invoice.php',$data);
+		$this->load->view('baseadmin/footer.php');
+	}
+	public function get_invoicehari()
+	  {
+	    $tgl = $this->input->post("tgl");
+	    $detail = $this->minvoice_model->get_invoicehari($tgl);
+	    echo json_encode($detail);
+	  }
+	
+	function pdf_hari()
+	{
+		$tanggal = $this->input->post('date');
+		if ($tanggal != ''){
+			$harian = $this->mlaporan->harian($tanggal);
+ 
+	 		$pdf = new FPDF('p', 'mm', 'A4');
+    	    $pdf->AddPage();
+        	$pdf->SetFont('Arial','B', 12);
+        	$pdf->Cell(190,7,'IKA KAIN KILOAN',0,1,'C');
+	        $pdf->Cell(190,7,'LAPORAN PENJUALAN KAIN '.$tanggal,0,1,'C');
+    	    $pdf->Cell(10,7,'',0,1);
+        	$pdf->SetFont('Arial', 'B', 7);
+	        $pdf->Cell(30,6,'Tanggal',1,0);
+    	    $pdf->Cell(30,6,'Tanggal Bayar',1,0);
+        	$pdf->Cell(30,6,'Kain',1,0);
+	        $pdf->Cell(10,6,'QTY',1,0);
+    	    $pdf->Cell(13,6,'Harga',1,0);
+        	$pdf->Cell(28,6,'Pelanggan',1,0);
+	        $pdf->Cell(23,6,'Ekspedisi',1,0);
+    	    $pdf->Cell(30,6,'Status',1,1);
+        	$pdf->SetFont('Arial', '', 7);
+	        foreach ($harian as $row) {
+				$pdf->Cell(30,6,$row->TR_TGL,1,0);
+				$pdf->Cell(30,6,$row->TR_TGLBYR,1,0);
+				$pdf->Cell(30,6,$row->KN_NAMA,1,0);
+				$pdf->Cell(10,6,$row->DT_QTY,1,0);
+				$pdf->Cell(13,6,$row->DT_HARGA,1,0);
+				$pdf->Cell(28,6,$row->PLG_NAMA,1,0);
+				$pdf->Cell(23,6,$row->ESK_NAMA,1,0);
+				if ($row->TR_STATUS == 1) {
+    	        	$pdf->Cell(30,6,'Menunggu Pembayaran',1,1); 
+				} elseif ($row->TR_STATUS == 2) {
+					$pdf->Cell(30,6,'Terbayar',1,1);
+				} elseif ($row->TR_STATUS == 3) {
+					$pdf->Cell(30,6,'Proses Pengiriman',1,1);
+				} elseif ($row->TR_STATUS == 4) {
+					$pdf->Cell(30,6,'Terkirim',1,1);
+				} elseif ($row->TR_STATUS == 5) {
+        			$pdf->Cell(30,6,'Dibatalkan',1,1);
+				}
+        	}
+        
+        	$pdf->Output();
+    	}else{
+    		echo "<script>alert('Masukkan tanggal terlebih dahulu');</script>";
+    		echo "<script>window.close();</script>";
+    	}
+		
+
 	}
 	public function cek_login(){
 		if ($this->session->userdata('name')==null){

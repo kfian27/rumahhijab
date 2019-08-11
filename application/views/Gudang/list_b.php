@@ -24,7 +24,7 @@
                     <?php $a=1; foreach ($gudang_detail as $row): ?>
                   <tr>
                       <td><?php echo $a; ?></td>
-                      <td><?php echo $row->id_produk; ?></td>
+                      <td><?php echo $row->nm_produk; ?></td>
                       <td><?php echo $row->jumlah_stok; ?></td>
                       <td><?php echo $row->keterangan; ?></td>
                       <td><?php echo $row->up_gudang; $a++; ?></td>

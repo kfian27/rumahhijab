@@ -3,21 +3,7 @@
 <div class="right_col" role="main" id="view">
   <div class="">
     <div class="row top_tiles">
-      <a href="<?php echo base_url();?>master/cabang">
-        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-          <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
-            <div class="icon" style="color: #fbfbfb"><i class="fa fa-building"></i></div>
-            <div class="count" style="color: #fbfbfb"><?php
-              foreach ($j_cabang as $key) {
-                echo $key->jumlah;
-              }
-            ?></div>
-            <h3 style="color: #fbfbfb">Cabang</h3>
-            <p style="color: #fbfbfb">Total Cabang</p>
-          </div>
-        </div>
-      </a>
-      <a href="">
+      <a href="<?php echo base_url();?>invoice/c_invoice">
         <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
           <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
             <div class="icon" style="color: #fbfbfb"><i class="fa fa-file-o"></i></div>

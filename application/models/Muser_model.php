@@ -20,7 +20,7 @@
 	    	if($selectcolumn){
 		    	$this->db_evin->select('id_user');
 		    	$this->db_evin->select('id_lvl');
-		    	$this->db_evin->select('id_cabang');
+		    	$this->db_evin->select('name_user');
 		    	$this->db_evin->select('username');
 		    	$this->db_evin->select('password');
 		    	$this->db_evin->select('ft_user');
@@ -57,27 +57,27 @@
 		 * @author Fian Hidayah
 		 * Fungsi untuk insert data ke tabel survei
 		 */
-		function insert($username=false,$password=false,$ft_user=false,$id_lvl=false,$id_cabang=false)
+		function insert($name_user=false,$username=false,$password=false,$ft_user=false,$id_lvl=false)
 		{
 			$data = array();
+			if($name_user !== false)$data['name_user'] = trim($name_user);
 			if($username !== false)$data['username'] = trim($username);
 			if($password !== false)$data['password'] = trim($password);
 			if($ft_user !== false)$data['ft_user'] = trim($ft_user);
 			if($id_lvl !== false)$data['id_lvl'] = trim($id_lvl);
-			if($id_cabang !== false)$data['id_cabang'] = trim($id_cabang);
       		$data['st_user']= STATUS_ACTIVE;
       		$data['last_user'] = now();
 			$this->db_evin->insert('user', $data);
 			return $this->db_evin->insert_id();
 		}
 
-		function update($id_user=false,$username=false,$ft_user=false,$id_lvl=false,$id_cabang=false)
+		function update($id_user=false,$name_user=false,$username=false,$ft_user=false,$id_lvl=false)
 		{
 			$data = array();
+			if($name_user !== false)$data['name_user'] = trim($name_user);
 			if($username !== false)$data['username'] = trim($username);
 			if($ft_user !== false)$data['ft_user'] = trim($ft_user);
 			if($id_lvl !== false)$data['id_lvl'] = trim($id_lvl);
-			if($id_cabang !== false)$data['id_cabang'] = trim($id_cabang);
 
 			return $this->db_evin->update('user', $data, "id_user = $id_user");
 		}

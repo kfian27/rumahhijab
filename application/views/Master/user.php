@@ -29,7 +29,7 @@
                   <tr>
                     <th>#</th>
                     <th>Level</th>
-                    <th>Cabang</th>
+                    <th>Nama User</th>
                     <th>Username</th>
                     <th>Terakhir Login</th>
                     <th>Action</th>
@@ -40,7 +40,7 @@
                 <tr>
                     <td><?php echo $a; ?></td>
                     <td><?php echo $row->id_lvl;?></td>
-                    <td><?php echo $row->id_cabang;?></td>
+                    <td><?php echo $row->name_user;?></td>
                     <td><?php echo $row->username;?></td>
                     <td><?php echo $row->last_user; $a++; ?></td>
                     <td>
@@ -58,6 +58,12 @@
         <form class="form-horizontal"  method="post" id="detail-tambah" name="detail-tambah" enctype="multipart/form-data">
           <input type="hidden" name="id_user" id="id_user">
           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+              <label for="tiga" class="col-sm-2 control-label"> Nama User </label>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <input type="text" class="form-control" placeholder="Nama User" name="name_user" id="name_user" required>
+              </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
               <label for="tiga" class="col-sm-2 control-label"> Username </label>
               <div class="col-md-10 col-sm-10 col-xs-10">
                 <input type="text" class="form-control" placeholder="Username" name="username" id="username" required>
@@ -67,17 +73,6 @@
               <label for="tiga" class="col-sm-2 control-label"> Password </label>
               <div class="col-md-10 col-sm-10 col-xs-10">
                 <input type="password" class="form-control" placeholder="Password" name="password" id="password" required>
-              </div>
-          </div>
-          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-              <label for="tiga" class="col-sm-2 control-label"> Cabang </label>
-              <div class="col-md-10 col-sm-10 col-xs-10">
-                <select class="form-control" name="id_cabang" id="id_cabang" required="required">
-                  <option value="0">-pilih cabang-</option>
-                  <?php foreach ($cabang_detail as $row): ?>
-                  <option value="<?php echo $row->id_cabang;?>"><?php echo $row->nm_cabang;?></option>
-                  <?php endforeach; ?>
-                </select>
               </div>
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
@@ -167,7 +162,7 @@ function tambah(){
     $('#tombol-tambah').attr('disabled',true);
     $('#id_user').val("");
     $('#id_lvl').val("");
-    $('#id_cabang').val("");
+    $('#name_user').val("");
     $('#username').val("");
     $('#password').val("");
     $('#imagenya').hide();
@@ -232,9 +227,8 @@ function ubah(url){
         {
             var fotomu  = data.data.ft_user; 
             $('#detail').hide();
-            // $.fillToForm("#detail-tambah", data.data);
             $('#id_lvl').val(data.data.id_lvl);
-            $('#id_cabang').val(data.data.id_cabang);
+            $('#name_user').val(data.data.name_user);
             $('#username').val(data.data.username);
             $('#id_user').val(data.data.id_user);
             $('#imagenya').attr("src","<?php echo base_url();?>assets/uploads/profil/"+fotomu);

@@ -12,6 +12,10 @@
     <link rel="shortcut icon" href="<?php echo base_url();?>assets/home/images/favicon.ico">
     <!-- jQuery -->
     <script src="<?php echo base_url();?>assets/dash/vendors/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>assets/dash/vendors/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>assets/dash/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>assets/dash/vendors/DateJS/build/date.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>assets/dash/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- Select 2 -->
     <link href="<?php echo base_url();?>assets/dash/vendors/select2/dist/css/select2.css" rel="stylesheet">
     <!-- Bootstrap -->
@@ -47,7 +51,7 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?php echo base_url();?>admin" class="site_title"><img src="<?php echo base_url();?>assets/uploads/profil/logo.jpeg" style="width: 60px; height: 60px;"><span> Rumah Hijab</span></a>
+              <a href="<?php echo base_url();?>admin" class="site_title"><img src="<?php echo base_url();?>assets/uploads/profil/logo.jpeg" style="width: 60px; height: 40px;"><span style="font-weight: bold; font-style: italic;"> Rumah Hijab</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -72,61 +76,44 @@
             <?php if ($this->session->userdata('level')=="1" || $this->session->userdata('level')=="2"):?>
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
+                <ul class="nav side-menu">
+                  <li><a href="<?php echo base_url();?>invoice/t_invoice"><i class="fa fa-plus"></i> Tambah Invoice </a></li>
+                  <li><a><i class="fa fa-book"></i> Laporan <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="<?php echo base_url();?>invoice/c_invoice"><i class="fa fa-tasks"></i> Current Invoice</a></li>
+                      <li><a href="<?php echo base_url();?>invoice/ha_invoice"><i class="fa fa-tasks"></i> Daily Invoice</a></li>
+                      <li><a href="<?php echo base_url();?>invoice/l_invoice"><i class="fa fa-list-ul"></i> List All Invoice</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-suitcase"></i> Produk <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="<?php echo base_url();?>gudang/b_in"><i class="fa fa-mail-reply"></i> Barang Masuk</a></li>
+                      <li><a href="<?php echo base_url();?>gudang/b_out"><i class="fa fa-mail-forward"></i> Barang Keluar</a></li>
+                      <li><a href="<?php echo base_url();?>gudang/list_b"><i class="fa fa-list-ul"></i> Detail Barang</a></li>
+                      <li><a href="<?php echo base_url();?>master/produk"><i class="fa fa-ticket"></i> Produk</a></li>
+                      <li><a href="<?php echo base_url();?>master/cat_produk"><i class="fa fa-tags"></i> Kategori Produk</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-code-fork"></i> Master <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="<?php echo base_url();?>master/pelanggan"><i class="fa fa-users"></i> Pelanggan</a></li>
+                      <li><a href="<?php echo base_url();?>master/user"><i class="fa fa-user"></i> User</a></li>
+                      <li><a href="<?php echo base_url();?>master/lvl"><i class="fa fa-users"></i> User level </a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <?php elseif($this->session->userdata('level')=="3"):?>
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
                 <ul class="nav side-menu">
                   <li><a href="<?php echo base_url(); ?>"><i class="fa fa-home"></i> Home </a></li>
                 </ul>
                 <h3>Invoice</h3>
                 <ul class="nav side-menu">
                   <li><a href="<?php echo base_url();?>invoice/t_invoice"><i class="fa fa-plus"></i> Tambah Invoice </a></li>
-                  <li><a href="<?php echo base_url();?>invoice/l_invoice"><i class="fa fa-list-ul"></i> List Invoice</a></li>
-                </ul>
- <!--                <h3>Laporan</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-file"></i> Laporan Penjualan <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>promethee/rangking"><i class="fa fa-bar-chart"></i> Harian</a></li>
-                      <li><a href="<?php echo base_url();?>gudang/"><i class="fa fa-bar-chart"></i> Mingguan </a></li>
-                      <li><a href="<?php echo base_url();?>gudang/"><i class="fa fa-bar-chart"></i> Bulanan </a></li>
-                      <li><a href="<?php echo base_url();?>gudang/"><i class="fa fa-bar-chart"></i> Tahunan  </a></li>
-                    </ul>
-                  </li>
-                </ul> -->
-                <h3>Gudang</h3>
-                <ul class="nav side-menu">
-                  <li><a href="<?php echo base_url();?>gudang/b_in"><i class="fa fa-mail-reply"></i> Barang Masuk</a></li>
-                  <li><a href="<?php echo base_url();?>gudang/b_out"><i class="fa fa-mail-forward"></i> Barang Keluar</a></li>
-                  <li><a href="<?php echo base_url();?>gudang/list_b"><i class="fa fa-list-ul"></i> Detail Barang</a></li>
-                </ul>
-                <h3>Master</h3>
-                <ul class="nav side-menu">
-                  <li><a href="<?php echo base_url();?>master/pelanggan"><i class="fa fa-users"></i> Pelanggan</a></li>
-                  <li><a href="<?php echo base_url();?>master/produk"><i class="fa fa-ticket"></i> Produk</a></li>
-                  <li><a href="<?php echo base_url();?>master/cat_produk"><i class="fa fa-tags"></i> Kategori Produk</a></li>
-                  <li><a href="<?php echo base_url();?>master/user"><i class="fa fa-user"></i> User</a></li>
-                  <li><a href="<?php echo base_url();?>master/cabang"><i class="fa fa-building-o"></i> Cabang</a></li>
-                  <li><a href="<?php echo base_url();?>master/lvl"><i class="fa fa-users"></i> User level </a></li>
-                </ul>
-              </div>
-            </div>
-            <?php elseif($this->session->userdata('level')=="3"):?>
-             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>Gudang</h3>
-                <ul class="nav side-menu">
-                  <li><a href="<?php echo base_url();?>gudang/b_in"><i class="fa fa-mail-reply"></i> Barang Masuk</a></li>
-                  <li><a href="<?php echo base_url();?>gudang/b_out"><i class="fa fa-mail-forward"></i> Barang Keluar</a></li>
-                  <li><a href="<?php echo base_url();?>gudang/list_b"><i class="fa fa-list-ul"></i> Detail Barang</a></li>
-                </ul>
-              </div>
-            </div>
-             <?php elseif($this->session->userdata('level')=="4"):?>
-             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-               <h3>Invoice</h3>
-                <ul class="nav side-menu">
-                  <li><a href="<?php echo base_url();?>invoice/t_invoice"><i class="fa fa-plus"></i> Tambah Invoice </a></li>
-                  <li><a href="<?php echo base_url();?>invoice/l_invoice"><i class="fa fa-list-ul"></i> List Invoice</a></li>
+                   <li><a href="<?php echo base_url();?>invoice/c_invoice"><i class="fa fa-tasks"></i> Current Invoice</a></li>
                 </ul>
               </div>
             </div>

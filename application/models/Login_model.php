@@ -19,11 +19,6 @@ class login_model extends CI_Model {
 		$query = $this->db_evin->query($sql);
 		return $query->result();
 	}
-	function j_cabang(){
-		$sql = "select count(id_cabang) as jumlah from cabang";
-		$query = $this->db_evin->query($sql);
-		return $query->result();
-	}
 	function j_tr(){
 		$sql = "SELECT COUNT(id_invoice) AS total FROM invoice WHERE DATE(tgl_invoice) = CURDATE();";
 		$query = $this->db_evin->query($sql);

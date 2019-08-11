@@ -8,7 +8,7 @@
             <h2>invoice</h2>
             <div class="clearfix"></div>
           </div>
-          <div class="x_content">
+          <div class="x_content" id="detail">
             <form action="<?=base_url()?>invoice/action" method="post" class="form-horizontal form-label-left" novalidate>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pelanggan">Pelanggan <span class="required">*</span>
@@ -20,6 +20,9 @@
                       <option value="<?php echo $key->id_plg; ?>"><?php echo $key->nm_plg ?></option>
                     <?php endforeach; ?>
                   </select>
+                  <span class="input-group-btn">
+                    <button id="tombol-tambah" class="btn btn-primary" onclick="javascript:tambah();"> Tambah <i class="fa fa-plus"></i></button>
+                  </span>
                 </div>
               </div>
               <div class="plg" style="display: none;">
@@ -62,7 +65,7 @@
                   <div class="input-group">
                     <input type="number" id="qty" name="qty" class="form-control" data-validate-minmax="1, 100">
                     <span class="input-group-btn">
-                      <button id="add_produk" type="button" class="btn btn-info ">Tambah Item</button>
+                      <button id="add_produk" type="button" class="btn btn-info ">Submit dan Tambah Item</button>
                     </span>
                   </div>
                 </div>
@@ -130,7 +133,41 @@
                   <button id="simpan" type="submit" class="btn btn-success">Simpan</button>
                 </div>
               </div>
-              
+            </form>
+          </div>
+          <div class="clearfix"></div>
+          <div class="row" id="form-tambah" id="form-tambah" style="display: none;">
+          <form class="form-horizontal"  method="post" id="detail-tambah" name="detail-tambah" enctype="multipart/form-data">
+            <input type="hidden" name="id_plg" id="id_plg">
+            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                <label for="tiga" class="col-sm-2 control-label"> Nama Toko/Pelanggan </label>
+                <div class="col-md-10 col-sm-10 col-xs-10">
+                  <input type="text" class="form-control" placeholder="Nama Toko" name="nm_plg" id="nm_plg" required>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                <label for="tiga" class="col-sm-2 control-label"> Alamat </label>
+                <div class="col-md-10 col-sm-10 col-xs-10">
+                  <input type="text" class="form-control" placeholder="Alamat" name="alm_plg" id="alm_plg" required>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+              <label for="tiga" class="col-sm-2 control-label"> Kota </label>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <input type="text" class="form-control" placeholder="Kota" name="kota_plg" id="kota_plg" required>
+                <!-- <select class="form-control" name="kota_plg" id="kota_plg" required="required">
+                  <option value="0">-pilih produk-</option>
+                </select> -->
+              </div>
+            </div>
+            <div class="ln_solid"></div>
+                <div class="form-group">
+                  <div class="col-md-6 col-sm-6 col-xs-12 pull-right">
+                    <button class="btn btn-primary" type="button" onclick="javascript:cancel();">Cancel</button>
+                    <button class="btn btn-primary" type="reset">Reset</button>
+                    <button type="submit" class="btn btn-success" onclick="javascript:simpan('mplg/coba_insert');" id="save" name="save">Submit</button>
+                  </div>
+                </div>
             </form>
           </div>
         </div>
@@ -139,6 +176,43 @@
   </div>
 </div>
 <script type="text/javascript">
+  function tambah(){
+  $('#detail').hide();
+  $('#form-tambah').show();
+  $('#tombol-tambah').attr('disabled',true);
+}
+function cancel(){
+  $('#detail').show();
+  $('#form-tambah').hide();
+  $('#tombol-tambah').attr('disabled',false);
+}
+function simpan(url){
+  $('#save').val('saving . . ');
+  $('#save').attr('disabled',true);
+  $("#detail-tambah").click(function(evt){
+      evt.preventDefault();
+      var formData = new FormData($(this)[0]);
+      $.ajax({
+          url: "<?php echo base_url()?>" + url,
+          type: 'POST',
+          data: formData,
+          async: false,
+          cache: false,
+          contentType: false,
+          enctype: 'multipart/form-data',
+          processData: false,
+          success: function (response) {
+            swal("Data telah tersimpan", {
+              icon: "success",
+              buttons: true
+            });
+            location.reload();
+          }
+      });
+      return false;
+  });
+}
+
   $(document).ready(function(){
     fill_table();
     fill_subttl();

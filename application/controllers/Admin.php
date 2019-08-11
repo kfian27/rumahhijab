@@ -35,7 +35,6 @@ class admin extends CI_Controller {
 		// $this->login();
 		$this->load->model('login_model');
 		$this->load->model('mgudang_model');
-		$data['j_cabang'] = $this->login_model->j_cabang();
 		$data['j_tr'] = $this->login_model->j_tr();
 		$data['j_proses'] = $this->login_model->j_proses();
 		$data['m_brg'] = $this->login_model->most_brg();
@@ -55,12 +54,13 @@ class admin extends CI_Controller {
 		else{
 			if($this->session->userdata('level')=='1' || $this->session->userdata('level')=='2'){
 				redirect(base_url("admin"));
-			}elseif ($this->session->userdata('level')=="3") {
-				redirect(base_url("gudang/list_b"));
 			}
-			elseif ($this->session->userdata('level')=="4") {
-				redirect(base_url("invoice/l_invoice"));
+			elseif ($this->session->userdata('level')=="3") {
+				redirect(base_url("invoice/t_invoice"));
 			}
+			// elseif ($this->session->userdata('level')=="4") {
+			// 	redirect(base_url("invoice/l_invoice"));
+			// }
 		}
 	}
 	public function cek_login(){
