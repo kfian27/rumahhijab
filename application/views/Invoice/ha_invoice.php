@@ -47,10 +47,11 @@
         });
       });
   
-    $('#tanggal').change(function(){
+    $('#tanggal').on('dp.change',function(e){
     var tgl = $('#tanggal').val();
+    // alert(tgl);
      $.ajax({
-        url : base_url + 'invoice/get_invoicehari',
+        url : "<?php echo base_url();?>invoice/get_invoicehari",
         type : 'post',
         dataType : 'json',
         data : {tgl:tgl},
