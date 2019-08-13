@@ -30,11 +30,39 @@
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
-          <div class="form-group" >
-              <div class="input-group col-md-3 col-sm-3 col-xs-12">
-                <input type="text" class="form-control" placeholder="Masukkan Tanggal" name="tanggal" id="tanggal">
-              </div>
+        <form class="form-horizontal" enctype="multipart/form-data">
+        <div class="form-group col-md-4 col-sm-6 col-xs-12">
+              <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Tahun  </label>
+              <div class="col-md-8 col-sm-8 col-xs-12">
+                <select class="form-control" name="tahun" id="tahun" required="required">
+                  <option value="0">-Pilih Tahun-</option>
+                  <?php $tahun = 2019; for ($i=0; $i < 99; $i++) { ?>
+                    <option value="<?php echo $tahun; ?>"><?php echo $tahun; ?></option>
+                  <?php $tahun++; } ?>
+                </select>
             </div>
+        </div>
+        <div class="form-group col-md-4 col-sm-6 col-xs-12">
+              <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Bulan  </label>
+              <div class="col-md-8 col-sm-8 col-xs-12">
+                <select class="form-control" placeholder="Bulan" name="bulan" id="bulan" required="required">
+                  <option value="">Pilih Bulan</option>
+                  <option value="01">Januari</option>
+                  <option value="02">Februari</option>
+                  <option value="03">Maret</option>
+                  <option value="04">April</option>
+                  <option value="05">Mei</option>
+                  <option value="06">Juni</option>
+                  <option value="07">Juli</option>
+                  <option value="08">Agustus</option>
+                  <option value="09">September</option>
+                  <option value="10">Oktober</option>
+                  <option value="11">Nopember</option>
+                  <option value="12">Desember</option>
+                </select>
+              </div>
+          </div>
+        </form>
           <div class="row" id="detail">
             <div class="col-sm-12 col-xs-12 col-md-12">
               <div class="table-responsive">
@@ -67,20 +95,15 @@
 <!-- end page content -->
 
 <script>
-  $(function () {
-        $('#tanggal').datetimepicker({
-          format: 'YYYY-MM-DD'
-        });
-      });
   
-    $('#tanggal').on('dp.change',function(e){
-    var tgl = $('#tanggal').val();
-    // alert(tgl);
+    $('#bulan').change(function(){
+    var tah = $('#tahun').val();
+    var bul = $('#bulan').val();
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari",
+        url : "<?php echo base_url();?>invoice/get_invoicebu",
         type : 'post',
         dataType : 'json',
-        data : {tgl:tgl},
+        data : {tah:tah,bul:bul},
         success : function(data)
         {
           
@@ -103,14 +126,14 @@
         }
       });
     });
-    $('#tanggal').on('dp.change',function(e){
-    var tgl = $('#tanggal').val();
-    // alert(tgl);
+    $('#bulan').change(function(){
+    var tah = $('#tahun').val();
+    var bul = $('#bulan').val();
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari1",
+        url : "<?php echo base_url();?>invoice/get_invoicebu1",
         type : 'post',
         dataType : 'json',
-        data : {tgl:tgl},
+        data : {tah:tah,bul:bul},
         success : function(data)
         {
           for (i=0; i<data.length; i++){
@@ -119,14 +142,14 @@
         }
       });
     });
-    $('#tanggal').on('dp.change',function(e){
-    var tgl = $('#tanggal').val();
-    // alert(tgl);
+    $('#bulan').change(function(){
+    var tah = $('#tahun').val();
+    var bul = $('#bulan').val();
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari2",
+        url : "<?php echo base_url();?>invoice/get_invoicebu2",
         type : 'post',
         dataType : 'json',
-        data : {tgl:tgl},
+        data : {tah:tah,bul:bul},
         success : function(data)
         {
           for (i=0; i<data.length; i++){
@@ -135,14 +158,14 @@
         }
       });
     });
-    $('#tanggal').on('dp.change',function(e){
-    var tgl = $('#tanggal').val();
-    // alert(tgl);
+    $('#bulan').change(function(){
+    var tah = $('#tahun').val();
+    var bul = $('#bulan').val();
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari3",
+        url : "<?php echo base_url();?>invoice/get_invoicebu3",
         type : 'post',
         dataType : 'json',
-        data : {tgl:tgl},
+        data : {tah:tah,bul:bul},
         success : function(data)
         {
           for (i=0; i<data.length; i++){
@@ -151,14 +174,14 @@
         }
       });
     });
-    $('#tanggal').on('dp.change',function(e){
-    var tgl = $('#tanggal').val();
-    // alert(tgl);
+    $('#bulan').change(function(){
+    var tah = $('#tahun').val();
+    var bul = $('#bulan').val();
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari4",
+        url : "<?php echo base_url();?>invoice/get_invoicebu4",
         type : 'post',
         dataType : 'json',
-        data : {tgl:tgl},
+        data : {tah:tah,bul:bul},
         success : function(data)
         {
           for (i=0; i<data.length; i++){

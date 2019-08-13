@@ -43,8 +43,8 @@
           <form class="form-horizontal"  method="post" id="detail-tambah" name="detail-tambah" enctype="multipart/form-data">
             <input type="hidden" name="id_cat" id="id_cat">
             <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                <label for="tiga" class="col-sm-2 control-label"> Kategori Produk </label>
-                <div class="col-md-10 col-sm-10 col-xs-10">
+                <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Kategori Produk </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
                   <input type="text" class="form-control" placeholder="Nama" name="nm_cat" id="nm_cat" required>
                 </div>
             </div>

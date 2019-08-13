@@ -47,29 +47,26 @@
           <form class="form-horizontal"  method="post" id="detail-tambah" name="detail-tambah" enctype="multipart/form-data">
             <input type="hidden" name="id_plg" id="id_plg">
             <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                <label for="tiga" class="col-sm-2 control-label"> Nama Toko/Pelanggan </label>
-                <div class="col-md-10 col-sm-10 col-xs-10">
+                <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Pelanggan </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
                   <input type="text" class="form-control" placeholder="Nama Toko" name="nm_plg" id="nm_plg" required>
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                <label for="tiga" class="col-sm-2 control-label"> Alamat </label>
-                <div class="col-md-10 col-sm-10 col-xs-10">
+                <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Alamat </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
                   <input type="text" class="form-control" placeholder="Alamat" name="alm_plg" id="alm_plg" required>
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-              <label for="tiga" class="col-sm-2 control-label"> Kota </label>
-              <div class="col-md-10 col-sm-10 col-xs-10">
+              <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Kota </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Kota" name="kota_plg" id="kota_plg" required>
-                <!-- <select class="form-control" name="kota_plg" id="kota_plg" required="required">
-                  <option value="0">-pilih produk-</option>
-                </select> -->
               </div>
             </div>
             <div class="ln_solid"></div>
                 <div class="form-group">
-                  <div class="col-md-6 col-sm-6 col-xs-12 pull-right">
+                  <div class="col-md-8 col-sm-8 col-xs-8 pull-right">
                     <button class="btn btn-primary" type="button" onclick="javascript:cancel();">Cancel</button>
                     <button class="btn btn-primary" type="reset">Reset</button>
                     <button type="submit" class="btn btn-success" onclick="javascript:simpan('mplg/coba_insert');" id="save" name="save">Submit</button>

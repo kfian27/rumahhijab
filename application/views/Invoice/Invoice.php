@@ -98,7 +98,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="berat">Diskon
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="diskon" name="diskon" class="form-control col-md-7 col-xs-12" >
+                  <input type="text" id="diskon" name="diskon" class="form-control col-md-7 col-xs-12" required>
                   <span class="form-control-feedback right" aria-hidden="true">%</span>
                 </div>
               </div>
@@ -116,7 +116,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bayar">Bayar
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="number" id="bayar" name="bayar" data-validate-minmax="1000,10000000" class="form-control col-md-7 col-xs-12">
+                  <input type="number" id="bayar" name="bayar" data-validate-minmax="1000,10000000" class="form-control col-md-7 col-xs-12" required>
                 </div>
               </div>
               <div class="item form-group">

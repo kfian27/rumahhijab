@@ -3,17 +3,59 @@
 <div class="right_col" role="main" id="view">
   <div class="">
     <div class="row top_tiles">
-      <a href="<?php echo base_url();?>invoice/c_invoice">
+      <a href="<?php echo base_url();?>invoice/l_invoice">
         <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
           <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
-            <div class="icon" style="color: #fbfbfb"><i class="fa fa-file-o"></i></div>
+            <div class="icon" style="color: #fbfbfb"><i class="fa fa-book"></i></div>
             <div class="count" style="color: #fbfbfb"><?php
-              foreach ($j_tr as $key) {
+              foreach ($s_tr as $key) {
                 echo $key->total;
               }
             ?></div>
-            <h3 style="color: #fbfbfb">Transaksi baru</h3>
-            <p style="color: #fbfbfb">Transaksi Hari ini</p>
+            <h3 style="color: #fbfbfb">Transaksi</h3>
+            <p style="color: #fbfbfb">Jumlah Keseluruhan Transaksi</p>
+          </div>
+        </div>
+      </a>
+      <a href="<?php echo base_url();?>">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
+            <div class="icon" style="color: #fbfbfb"><i class="fa fa-briefcase"></i></div>
+            <div class="count" style="color: #fbfbfb"><?php
+              foreach ($s_p as $key) {
+                echo $key->total;
+              }
+            ?></div>
+            <h3 style="color: #fbfbfb">Terjual</h3>
+            <p style="color: #fbfbfb">Jumlah Keseluruhan Produk Terjual</p>
+          </div>
+        </div>
+      </a>
+      <a href="<?php echo base_url();?>">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
+            <div class="icon" style="color: #fbfbfb"><i class="fa fa-briefcase"></i></div>
+            <div class="count" style="color: #fbfbfb"><?php
+              foreach ($j_sp as $key) {
+                echo $key->total;
+              }
+            ?></div>
+            <h3 style="color: #fbfbfb">Masuk</h3>
+            <p style="color: #fbfbfb">Jumlah Keseluruhan Produk Masuk</p>
+          </div>
+        </div>
+      </a>
+      <a href="<?php echo base_url();?>">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="tile-stats" style="background-color: #2d6aa0; border-color: #2d6aa0;">
+            <div class="icon" style="color: #fbfbfb"><i class="fa fa-briefcase"></i></div>
+            <div class="count" style="color: #fbfbfb"><?php
+              foreach ($s_s as $key) {
+                echo $key->total;
+              }
+            ?></div>
+            <h3 style="color: #fbfbfb">Stok</h3>
+            <p style="color: #fbfbfb">Jumlah Keseluruhan Sisa Stok</p>
           </div>
         </div>
       </a>

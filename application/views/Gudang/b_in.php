@@ -12,8 +12,8 @@
           <form class="form-horizontal"  method="post" id="detail-tambah" name="detail-tambah" enctype="multipart/form-data">
             <input type="hidden" name="id_gudang" id="id_gudang">
             <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-              <label for="tiga" class="col-sm-2 control-label"> Produk </label>
-              <div class="col-md-10 col-sm-10 col-xs-10">
+              <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Produk </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control" name="id_produk" id="id_produk" required="required">
                   <option value="0">-pilih produk-</option>
                   <?php foreach ($produk_detail as $row): ?>
@@ -23,8 +23,8 @@
               </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                <label for="tiga" class="col-sm-2 control-label"> Jumlah </label>
-                <div class="col-md-10 col-sm-10 col-xs-10">
+                <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Jumlah </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
                   <input type="number" class="form-control" placeholder="number" name="jumlah_stok" id="jumlah_stok" required>
                 </div>
             </div>

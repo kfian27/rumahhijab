@@ -4,7 +4,7 @@
 <div class="">
     <div class="x_panel">
         <div class="x_title">
-          <a href="<?php echo base_url()?>/invoice/l_invoice/" class="btn btn-success"><i class="fa fa-angle-left"></i> Kembali </a>
+          <a href="<?php echo base_url()?>/invoice/c_invoice/" class="btn btn-success"><i class="fa fa-angle-left"></i> Kembali </a>
           <div class="nav navbar-right ">
             <a class="btn btn-info" onclick="print_areannya('detail')"><i class="fa fa-print"></i> Cetak</a>
           </div>
@@ -55,7 +55,7 @@
                       <th>Nama Barang</th>
                       <th>Qty</th>
                       <th>Harga (Satuan)</th>
-                      <th>Jumnlah</th>
+                      <th>Jumlah</th>
                     </tr>
                   </thead>
                   <tbody>

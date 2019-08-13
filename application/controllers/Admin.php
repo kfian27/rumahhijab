@@ -35,7 +35,10 @@ class admin extends CI_Controller {
 		// $this->login();
 		$this->load->model('login_model');
 		$this->load->model('mgudang_model');
-		$data['j_tr'] = $this->login_model->j_tr();
+		$data['s_tr'] = $this->login_model->s_tr();
+		$data['s_p'] = $this->login_model->s_p();
+		$data['j_sp'] = $this->login_model->j_sp();
+		$data['s_s'] = $this->login_model->s_s();
 		$data['j_proses'] = $this->login_model->j_proses();
 		$data['m_brg'] = $this->login_model->most_brg();
 		// $data['prioritas_lalu'] = $this->rangking("lalu");

@@ -81,7 +81,10 @@
                   <li><a><i class="fa fa-book"></i> Laporan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>invoice/c_invoice"><i class="fa fa-tasks"></i> Current Invoice</a></li>
-                      <li><a href="<?php echo base_url();?>invoice/ha_invoice"><i class="fa fa-tasks"></i> Daily Invoice</a></li>
+                      <li><a href="<?php echo base_url();?>invoice/ha_invoice"><i class="fa fa-tasks"></i> Per Hari Invoice</a></li>
+                      <li><a href="<?php echo base_url();?>invoice/mi_invoice"><i class="fa fa-tasks"></i> Hari-hari Invoice</a></li>
+                      <li><a href="<?php echo base_url();?>invoice/bu_invoice"><i class="fa fa-tasks"></i> Bulanan Invoice</a></li>
+                      <li><a href="<?php echo base_url();?>invoice/ta_invoice"><i class="fa fa-tasks"></i> Tahunan Invoice</a></li>
                       <li><a href="<?php echo base_url();?>invoice/l_invoice"><i class="fa fa-list-ul"></i> List All Invoice</a></li>
                     </ul>
                   </li>
@@ -98,7 +101,7 @@
                     <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>master/pelanggan"><i class="fa fa-users"></i> Pelanggan</a></li>
                       <li><a href="<?php echo base_url();?>master/user"><i class="fa fa-user"></i> User</a></li>
-                      <li><a href="<?php echo base_url();?>master/lvl"><i class="fa fa-users"></i> User level </a></li>
+                      <li><a href="<?php echo base_url();?>master/lvl"><i class="fa fa-arrows-h"></i> User level </a></li>
                     </ul>
                   </li>
                 </ul>

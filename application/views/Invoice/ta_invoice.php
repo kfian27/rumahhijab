@@ -30,11 +30,19 @@
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
-          <div class="form-group" >
-              <div class="input-group col-md-3 col-sm-3 col-xs-12">
-                <input type="text" class="form-control" placeholder="Masukkan Tanggal" name="tanggal" id="tanggal">
-              </div>
+        <form class="form-horizontal" enctype="multipart/form-data">
+        <div class="form-group col-md-4 col-sm-6 col-xs-12">
+              <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Tahun  </label>
+              <div class="col-md-8 col-sm-8 col-xs-12">
+                <select class="form-control" name="tahun" id="tahun" required="required">
+                  <option value="0">-Pilih Tahun-</option>
+                  <?php $tahun = 2019; for ($i=0; $i < 99; $i++) { ?>
+                    <option value="<?php echo $tahun; ?>"><?php echo $tahun; ?></option>
+                  <?php $tahun++; } ?>
+                </select>
             </div>
+        </div>
+        </form>
           <div class="row" id="detail">
             <div class="col-sm-12 col-xs-12 col-md-12">
               <div class="table-responsive">
@@ -67,20 +75,14 @@
 <!-- end page content -->
 
 <script>
-  $(function () {
-        $('#tanggal').datetimepicker({
-          format: 'YYYY-MM-DD'
-        });
-      });
   
-    $('#tanggal').on('dp.change',function(e){
-    var tgl = $('#tanggal').val();
-    // alert(tgl);
+    $('#tahun').change(function(){
+    var tah = $('#tahun').val();
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari",
+        url : "<?php echo base_url();?>invoice/get_invoiceta",
         type : 'post',
         dataType : 'json',
-        data : {tgl:tgl},
+        data : {tah:tah},
         success : function(data)
         {
           
@@ -103,14 +105,13 @@
         }
       });
     });
-    $('#tanggal').on('dp.change',function(e){
-    var tgl = $('#tanggal').val();
-    // alert(tgl);
+    $('#tahun').change(function(){
+    var tah = $('#tahun').val();
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari1",
+        url : "<?php echo base_url();?>invoice/get_invoiceta1",
         type : 'post',
         dataType : 'json',
-        data : {tgl:tgl},
+        data : {tah:tah},
         success : function(data)
         {
           for (i=0; i<data.length; i++){
@@ -119,14 +120,13 @@
         }
       });
     });
-    $('#tanggal').on('dp.change',function(e){
-    var tgl = $('#tanggal').val();
-    // alert(tgl);
+    $('#tahun').change(function(){
+    var tah = $('#tahun').val();
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari2",
+        url : "<?php echo base_url();?>invoice/get_invoiceta2",
         type : 'post',
         dataType : 'json',
-        data : {tgl:tgl},
+        data : {tah:tah},
         success : function(data)
         {
           for (i=0; i<data.length; i++){
@@ -135,14 +135,13 @@
         }
       });
     });
-    $('#tanggal').on('dp.change',function(e){
-    var tgl = $('#tanggal').val();
-    // alert(tgl);
+    $('#tahun').change(function(){
+    var tah = $('#tahun').val();
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari3",
+        url : "<?php echo base_url();?>invoice/get_invoiceta3",
         type : 'post',
         dataType : 'json',
-        data : {tgl:tgl},
+        data : {tah:tah},
         success : function(data)
         {
           for (i=0; i<data.length; i++){
@@ -151,14 +150,13 @@
         }
       });
     });
-    $('#tanggal').on('dp.change',function(e){
-    var tgl = $('#tanggal').val();
-    // alert(tgl);
+    $('#tahun').change(function(){
+    var tah = $('#tahun').val();
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari4",
+        url : "<?php echo base_url();?>invoice/get_invoiceta4",
         type : 'post',
         dataType : 'json',
-        data : {tgl:tgl},
+        data : {tah:tah},
         success : function(data)
         {
           for (i=0; i<data.length; i++){

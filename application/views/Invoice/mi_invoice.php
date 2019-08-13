@@ -30,11 +30,19 @@
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
-          <div class="form-group" >
-              <div class="input-group col-md-3 col-sm-3 col-xs-12">
-                <input type="text" class="form-control" placeholder="Masukkan Tanggal" name="tanggal" id="tanggal">
-              </div>
+          <form class="form-horizontal" enctype="multipart/form-data">
+            <div class="form-group col-md-4 col-sm-4 col-xs-12" >
+              <input type="text" class="form-control" placeholder="Pilih Tanggal Sebelum Hari ini" name="tanggal" id="tanggal">
             </div>
+            <div class="form-group col-md-2 col-sm-2 col-xs-12" >
+              <a class="btn btn-info">>> Sampai >></a>
+            </div>
+            <div class="form-group col-md-3 col-sm-3 col-xs-12" >
+              <input type="text" class="form-control" placeholder="Tanggal Hari ini" disabled>
+            </div>
+          </form>
+        </div>
+
           <div class="row" id="detail">
             <div class="col-sm-12 col-xs-12 col-md-12">
               <div class="table-responsive">
@@ -77,7 +85,7 @@
     var tgl = $('#tanggal').val();
     // alert(tgl);
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari",
+        url : "<?php echo base_url();?>invoice/get_invoicemi",
         type : 'post',
         dataType : 'json',
         data : {tgl:tgl},
@@ -105,9 +113,8 @@
     });
     $('#tanggal').on('dp.change',function(e){
     var tgl = $('#tanggal').val();
-    // alert(tgl);
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari1",
+        url : "<?php echo base_url();?>invoice/get_invoicemi1",
         type : 'post',
         dataType : 'json',
         data : {tgl:tgl},
@@ -121,9 +128,8 @@
     });
     $('#tanggal').on('dp.change',function(e){
     var tgl = $('#tanggal').val();
-    // alert(tgl);
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari2",
+        url : "<?php echo base_url();?>invoice/get_invoicemi2",
         type : 'post',
         dataType : 'json',
         data : {tgl:tgl},
@@ -137,9 +143,8 @@
     });
     $('#tanggal').on('dp.change',function(e){
     var tgl = $('#tanggal').val();
-    // alert(tgl);
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari3",
+        url : "<?php echo base_url();?>invoice/get_invoicemi3",
         type : 'post',
         dataType : 'json',
         data : {tgl:tgl},
@@ -153,9 +158,8 @@
     });
     $('#tanggal').on('dp.change',function(e){
     var tgl = $('#tanggal').val();
-    // alert(tgl);
      $.ajax({
-        url : "<?php echo base_url();?>invoice/get_invoicehari4",
+        url : "<?php echo base_url();?>invoice/get_invoicemi4",
         type : 'post',
         dataType : 'json',
         data : {tgl:tgl},

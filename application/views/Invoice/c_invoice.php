@@ -1,15 +1,40 @@
 <!-- page content -->
 <div class="right_col" role="main">
 <div class="">
+  <div class="row tile_count">
+            <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-money"></i> Total Pendapatan</span>
+              <div class="count">
+                <?php foreach ($totalsemuainvoice_c as $row){
+                   echo $row->total; }?>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-clock-o"></i> Transaksi</span>
+              <div class="count">
+                <?php foreach ($j_tr as $key) {
+                  echo $key->total;
+                }?>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-briefcase"></i> Produk Terjual</span>
+              <div class="count">
+                <?php foreach ($totalproduk_c as $row){
+                   echo $row->total; }?>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-mail-reply"></i> Stok Masuk</span>
+              <div class="count">
+                <?php foreach ($produkmasuk_c as $row){
+                   echo $row->total; }?>
+              </div>
+            </div>
+          </div>
     <div class="x_panel">
         <div class="x_title">
           <h2> List Invoice</h2>
-          <div class="nav navbar-right ">
-            <a class="btn btn-info"><i class="fa fa-money"></i> 
-              <?php foreach ($totalsemuainvoice_c as $row): ?>
-              <?php echo $row->total; ?></a>
-            <?php endforeach ?>
-          </div>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">

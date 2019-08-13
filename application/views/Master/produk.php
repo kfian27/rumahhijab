@@ -62,14 +62,14 @@
         <form class="form-horizontal"  method="post" id="detail-tambah" name="detail-tambah" enctype="multipart/form-data">
           <input type="hidden" name="id_produk" id="id_produk">
           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-              <label for="tiga" class="col-sm-2 control-label"> Nama Produk</label>
-              <div class="col-md-10 col-sm-10 col-xs-10">
+              <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Nama Produk</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Nama produk" name="nm_produk" id="nm_produk" required>
               </div>
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-              <label for="tiga" class="col-sm-2 control-label"> Jenis Produk  </label>
-              <div class="col-md-10 col-sm-10 col-xs-10">
+              <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Jenis Produk  </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control" name="id_cat" id="id_cat" required="required">
                   <option value="0">-pilih jenis-</option>
                   <?php foreach ($kategori_detail as $row): ?>
@@ -167,6 +167,7 @@ function tambah(){
     $('#id_produk').val("");
     $('#nm_produk').val("");
     $('#harga_produk').val("");
+    $('#beli_produk').val("");
     $('#imagenya').hide();
     $('#fotonya').val("");
 }
@@ -233,6 +234,7 @@ function ubah(url){
             $('#nm_produk').val(data.data.nm_produk);
             $('#id_cat').val(data.data.id_cat);
             $('#harga_produk').val(data.data.harga_produk);
+            $('#beli_produk').val(data.data.beli_produk);
             $('#id_produk').val(data.data.id_produk);
             $('#imagenya').attr("src","<?php echo base_url();?>assets/uploads/produk/"+fotomu);
             $('#fotonya').val(data.data.ft_produk);
