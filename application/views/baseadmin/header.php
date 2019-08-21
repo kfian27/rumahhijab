@@ -80,11 +80,10 @@
                   <li><a href="<?php echo base_url();?>invoice/t_invoice"><i class="fa fa-plus"></i> Tambah Invoice </a></li>
                   <li><a><i class="fa fa-book"></i> Laporan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>invoice/c_invoice"><i class="fa fa-tasks"></i> Current Invoice</a></li>
-                      <li><a href="<?php echo base_url();?>invoice/ha_invoice"><i class="fa fa-tasks"></i> Per Hari Invoice</a></li>
-                      <li><a href="<?php echo base_url();?>invoice/mi_invoice"><i class="fa fa-tasks"></i> Hari-hari Invoice</a></li>
-                      <li><a href="<?php echo base_url();?>invoice/bu_invoice"><i class="fa fa-tasks"></i> Bulanan Invoice</a></li>
-                      <li><a href="<?php echo base_url();?>invoice/ta_invoice"><i class="fa fa-tasks"></i> Tahunan Invoice</a></li>
+                      <li><a href="<?php echo base_url();?>invoice/c_invoice"><i class="fa fa-tasks"></i> Hari Ini</a></li>
+                      <li><a href="<?php echo base_url();?>invoice/ha_invoice"><i class="fa fa-tasks"></i> PerHari</a></li>
+                      <li><a href="<?php echo base_url();?>invoice/mi_invoice"><i class="fa fa-tasks"></i> Kemarin - Hari Ini</a></li>
+                      <li><a href="<?php echo base_url();?>invoice/bu_invoice"><i class="fa fa-tasks"></i> Tahun & Bulanan</a></li>
                       <li><a href="<?php echo base_url();?>invoice/l_invoice"><i class="fa fa-list-ul"></i> List All Invoice</a></li>
                     </ul>
                   </li>

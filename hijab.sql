@@ -1,270 +1,344 @@
 /*
-SQLyog Ultimate v13.1.1 (64 bit)
-MySQL - 10.1.22-MariaDB : Database - hijab
-*********************************************************************
+ Navicat Premium Data Transfer
+
+ Source Server         : pbsb_db
+ Source Server Type    : MySQL
+ Source Server Version : 100122
+ Source Host           : localhost:3306
+ Source Schema         : hijab
+
+ Target Server Type    : MySQL
+ Target Server Version : 100122
+ File Encoding         : 65001
+
+ Date: 21/08/2019 14:14:57
 */
 
-/*!40101 SET NAMES utf8 */;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
-/*!40101 SET SQL_MODE=''*/;
-
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`hijab` /*!40100 DEFAULT CHARACTER SET latin1 */;
-
-USE `hijab`;
-
-/*Table structure for table `detail_invoice` */
-
+-- ----------------------------
+-- Table structure for detail_invoice
+-- ----------------------------
 DROP TABLE IF EXISTS `detail_invoice`;
-
-CREATE TABLE `detail_invoice` (
+CREATE TABLE `detail_invoice`  (
   `id_di` int(11) NOT NULL AUTO_INCREMENT,
-  `id_invoice` int(11) DEFAULT NULL,
-  `id_produk` int(255) DEFAULT NULL,
-  `qty_di` int(11) DEFAULT NULL,
-  `total_di` varchar(255) DEFAULT NULL,
-  `st_di` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_di`),
-  KEY `fk_di_produk` (`id_produk`),
-  KEY `fk_di_invo` (`id_invoice`),
-  CONSTRAINT `fk_di_invo` FOREIGN KEY (`id_invoice`) REFERENCES `invoice` (`id_invoice`),
-  CONSTRAINT `fk_di_produk` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  `id_invoice` int(11) NULL DEFAULT NULL,
+  `id_produk` int(255) NULL DEFAULT NULL,
+  `qty_di` int(11) NULL DEFAULT NULL,
+  `total_di` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `st_di` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id_di`) USING BTREE,
+  INDEX `fk_di_produk`(`id_produk`) USING BTREE,
+  INDEX `fk_di_invo`(`id_invoice`) USING BTREE,
+  CONSTRAINT `fk_di_invo` FOREIGN KEY (`id_invoice`) REFERENCES `invoice` (`id_invoice`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_di_produk` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
-/*Data for the table `detail_invoice` */
+-- ----------------------------
+-- Records of detail_invoice
+-- ----------------------------
+INSERT INTO `detail_invoice` VALUES (1, 1, 1, 3, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (2, 1, 2, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (3, 2, 1, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (4, 3, 1, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (5, 4, 2, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (6, 5, 2, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (7, 6, 2, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (8, 7, 2, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (9, 8, 1, 4, '80000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (10, 9, 1, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (11, 10, 2, 3, '90000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (12, 11, 1, 1, '20000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (13, 11, 2, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (14, 12, 1, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (15, 13, 1, 4, '80000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (16, 13, 2, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (17, 14, 3, 2, '50000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (18, 15, 3, 2, '50000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (19, 15, 2, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (20, 16, 2, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (21, 17, 2, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (22, 17, 1, 1, '20000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (23, 18, 2, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (24, 19, 2, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (25, 20, 2, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (26, 21, 1, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (27, 22, 1, 6, '102000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (28, 22, 1, 4, '72000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (29, 22, 1, 20, '300000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (30, 22, 1, 11, '176000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (31, 22, 1, 2, '40000', 'kirim');
 
-insert  into `detail_invoice`(`id_di`,`id_invoice`,`id_produk`,`qty_di`,`total_di`,`st_di`) values 
-(1,1,1,3,'60000','kirim'),
-(2,1,2,1,'30000','kirim'),
-(3,2,1,2,'40000','kirim'),
-(4,3,1,2,'40000','kirim'),
-(5,4,2,1,'30000','kirim'),
-(6,5,2,1,'30000','kirim'),
-(7,6,2,2,'60000','kirim'),
-(8,7,2,2,'60000','gudang');
-
-/*Table structure for table `detail_invoice_tmp` */
-
+-- ----------------------------
+-- Table structure for detail_invoice_tmp
+-- ----------------------------
 DROP TABLE IF EXISTS `detail_invoice_tmp`;
-
-CREATE TABLE `detail_invoice_tmp` (
+CREATE TABLE `detail_invoice_tmp`  (
   `id_di` int(11) NOT NULL AUTO_INCREMENT,
-  `id_invoice` int(11) DEFAULT NULL,
-  `id_produk` int(255) DEFAULT NULL,
-  `qty_di` int(11) DEFAULT NULL,
-  `total_di` varchar(255) DEFAULT NULL,
-  `st_di` smallint(255) DEFAULT NULL,
-  PRIMARY KEY (`id_di`),
-  KEY `fk_di_produk` (`id_produk`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `id_invoice` int(11) NULL DEFAULT NULL,
+  `id_produk` int(255) NULL DEFAULT NULL,
+  `qty_di` int(11) NULL DEFAULT NULL,
+  `total_di` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `st_di` smallint(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_di`) USING BTREE,
+  INDEX `fk_di_produk`(`id_produk`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
-/*Data for the table `detail_invoice_tmp` */
-
-/*Table structure for table `gudang` */
-
+-- ----------------------------
+-- Table structure for gudang
+-- ----------------------------
 DROP TABLE IF EXISTS `gudang`;
-
-CREATE TABLE `gudang` (
+CREATE TABLE `gudang`  (
   `id_gudang` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) DEFAULT NULL,
-  `id_produk` int(11) DEFAULT NULL,
-  `no_invoice` varchar(255) DEFAULT NULL,
-  `jumlah_stok` int(11) DEFAULT NULL,
-  `keterangan` varchar(50) DEFAULT NULL,
-  `up_gudang` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id_gudang`),
-  KEY `FK_RELATIONSHIP_7` (`id_user`),
-  KEY `FK_RELATIONSHIP_8` (`id_produk`),
-  CONSTRAINT `fk_gu_pro` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`),
-  CONSTRAINT `fk_gu_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  `id_user` int(11) NULL DEFAULT NULL,
+  `id_produk` int(11) NULL DEFAULT NULL,
+  `no_invoice` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `jumlah_stok` int(11) NULL DEFAULT NULL,
+  `keterangan` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `up_gudang` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_gudang`) USING BTREE,
+  INDEX `FK_RELATIONSHIP_7`(`id_user`) USING BTREE,
+  INDEX `FK_RELATIONSHIP_8`(`id_produk`) USING BTREE,
+  CONSTRAINT `fk_gu_pro` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_gu_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
-/*Data for the table `gudang` */
+-- ----------------------------
+-- Records of gudang
+-- ----------------------------
+INSERT INTO `gudang` VALUES (1, 1, 1, NULL, 20, 'Barang masuk', '2019-08-09 17:47:05');
+INSERT INTO `gudang` VALUES (2, 1, 2, NULL, 20, 'Barang masuk', '2019-08-09 17:47:14');
+INSERT INTO `gudang` VALUES (3, 1, 1, '19/08/09/001', 3, 'Barang keluar', '2019-08-10 10:06:09');
+INSERT INTO `gudang` VALUES (4, 1, 2, '19/08/09/001', 1, 'Barang keluar', '2019-08-10 10:06:25');
+INSERT INTO `gudang` VALUES (5, 1, 1, '19/08/10/002', 2, 'Barang keluar', '2019-08-10 10:43:05');
+INSERT INTO `gudang` VALUES (6, 1, 1, '19/08/10/001', 2, 'Barang keluar', '2019-08-10 10:43:39');
+INSERT INTO `gudang` VALUES (7, 1, 2, '19/08/10/003', 1, 'Barang keluar', '2019-08-10 13:42:20');
+INSERT INTO `gudang` VALUES (8, 1, 2, '19/08/10/004', 1, 'Barang keluar', '2019-08-10 13:42:22');
+INSERT INTO `gudang` VALUES (9, 4, 2, '19/08/10/005', 2, 'Barang keluar', '2019-08-10 18:46:26');
+INSERT INTO `gudang` VALUES (10, 4, 2, '19/08/11/001', 2, 'Barang keluar', '2019-08-11 22:05:10');
+INSERT INTO `gudang` VALUES (11, 4, 1, '19/08/11/002', 4, 'Barang keluar', '2019-08-11 22:05:12');
+INSERT INTO `gudang` VALUES (12, 4, 1, NULL, 6, 'Barang masuk', '2019-08-11 22:11:56');
+INSERT INTO `gudang` VALUES (13, 4, 1, '19/08/11/003', 2, 'Barang keluar', '2019-08-12 13:08:36');
+INSERT INTO `gudang` VALUES (14, 4, 1, '19/08/12/002', 1, 'Barang keluar', '2019-08-12 13:08:38');
+INSERT INTO `gudang` VALUES (15, 4, 2, '19/08/12/001', 3, 'Barang keluar', '2019-08-12 13:08:39');
+INSERT INTO `gudang` VALUES (16, 4, 2, '19/08/12/002', 1, 'Barang keluar', '2019-08-12 13:08:41');
+INSERT INTO `gudang` VALUES (17, 4, 2, NULL, 10, 'Barang masuk', '2019-08-12 13:49:01');
+INSERT INTO `gudang` VALUES (18, 4, 1, '19/08/12/003', 2, 'Barang keluar', '2019-08-12 20:39:45');
+INSERT INTO `gudang` VALUES (19, 4, 1, '19/08/14/001', 4, 'Barang keluar', '2019-08-14 15:08:48');
+INSERT INTO `gudang` VALUES (20, 4, 2, '19/08/14/001', 2, 'Barang keluar', '2019-08-14 15:08:51');
+INSERT INTO `gudang` VALUES (21, 4, 3, NULL, 20, 'Barang masuk', '2019-08-14 15:14:58');
+INSERT INTO `gudang` VALUES (22, 4, 3, '19/08/14/002', 2, 'Barang keluar', '2019-08-14 15:16:09');
+INSERT INTO `gudang` VALUES (23, 4, 1, '19/08/14/005', 1, 'Barang keluar', '2019-08-14 22:46:41');
+INSERT INTO `gudang` VALUES (24, 4, 1, '19/08/14/009', 2, 'Barang keluar', '2019-08-14 22:46:43');
+INSERT INTO `gudang` VALUES (25, 4, 2, '19/08/14/003', 1, 'Barang keluar', '2019-08-14 22:46:45');
+INSERT INTO `gudang` VALUES (26, 4, 2, '19/08/14/004', 2, 'Barang keluar', '2019-08-14 22:46:47');
+INSERT INTO `gudang` VALUES (27, 4, 2, '19/08/14/005', 2, 'Barang keluar', '2019-08-14 22:46:48');
+INSERT INTO `gudang` VALUES (28, 4, 2, '19/08/14/006', 2, 'Barang keluar', '2019-08-14 22:46:51');
+INSERT INTO `gudang` VALUES (29, 4, 2, '19/08/14/007', 1, 'Barang keluar', '2019-08-14 22:46:52');
+INSERT INTO `gudang` VALUES (30, 4, 2, '19/08/14/008', 1, 'Barang keluar', '2019-08-14 22:46:54');
+INSERT INTO `gudang` VALUES (31, 4, 3, '19/08/14/003', 2, 'Barang keluar', '2019-08-14 22:46:55');
+INSERT INTO `gudang` VALUES (32, 4, 1, NULL, 100, 'Barang masuk', '2019-08-21 12:19:59');
+INSERT INTO `gudang` VALUES (33, 4, 1, '19/08/21/001', 6, 'Barang keluar', '2019-08-21 13:10:32');
+INSERT INTO `gudang` VALUES (34, 4, 1, '19/08/21/001', 4, 'Barang keluar', '2019-08-21 13:10:34');
+INSERT INTO `gudang` VALUES (35, 4, 1, '19/08/21/001', 20, 'Barang keluar', '2019-08-21 13:10:36');
+INSERT INTO `gudang` VALUES (36, 4, 1, '19/08/21/001', 11, 'Barang keluar', '2019-08-21 13:10:38');
+INSERT INTO `gudang` VALUES (37, 4, 1, '19/08/21/001', 2, 'Barang keluar', '2019-08-21 13:10:44');
 
-insert  into `gudang`(`id_gudang`,`id_user`,`id_produk`,`no_invoice`,`jumlah_stok`,`keterangan`,`up_gudang`) values 
-(1,1,1,NULL,20,'Barang masuk','2019-08-09 17:47:05'),
-(2,1,2,NULL,20,'Barang masuk','2019-08-09 17:47:14'),
-(3,1,1,'19/08/09/001',3,'Barang keluar','2019-08-10 10:06:09'),
-(4,1,2,'19/08/09/001',1,'Barang keluar','2019-08-10 10:06:25'),
-(5,1,1,'19/08/10/002',2,'Barang keluar','2019-08-10 10:43:05'),
-(6,1,1,'19/08/10/001',2,'Barang keluar','2019-08-10 10:43:39'),
-(7,1,2,'19/08/10/003',1,'Barang keluar','2019-08-10 13:42:20'),
-(8,1,2,'19/08/10/004',1,'Barang keluar','2019-08-10 13:42:22'),
-(9,4,2,'19/08/10/005',2,'Barang keluar','2019-08-10 18:46:26');
-
-/*Table structure for table `invoice` */
-
+-- ----------------------------
+-- Table structure for invoice
+-- ----------------------------
 DROP TABLE IF EXISTS `invoice`;
-
-CREATE TABLE `invoice` (
+CREATE TABLE `invoice`  (
   `id_invoice` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) DEFAULT NULL,
-  `no_invoice` varchar(255) DEFAULT NULL,
-  `nm_invoice` varchar(255) DEFAULT NULL,
-  `alm_invoice` varchar(255) DEFAULT NULL,
-  `kota_invoice` varchar(255) DEFAULT NULL,
-  `byr_invoice` varchar(255) DEFAULT NULL,
-  `harga_invoice` varchar(255) DEFAULT NULL,
-  `diskon_invoice` varchar(255) DEFAULT NULL,
-  `tgl_invoice` timestamp NULL DEFAULT NULL,
-  `status_bayar` varchar(255) DEFAULT NULL,
-  `st_invoice` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_invoice`),
-  KEY `fk_relationship_3` (`id_user`),
-  CONSTRAINT `fk_in_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  `id_user` int(11) NULL DEFAULT NULL,
+  `no_invoice` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `nm_invoice` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `alm_invoice` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `kota_invoice` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `byr_invoice` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `harga_invoice` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `diskon_invoice` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `tagihan_invoice` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `tgl_invoice` timestamp(0) NULL DEFAULT NULL,
+  `status_bayar` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `st_invoice` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id_invoice`) USING BTREE,
+  INDEX `fk_relationship_3`(`id_user`) USING BTREE,
+  CONSTRAINT `fk_in_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
-/*Data for the table `invoice` */
+-- ----------------------------
+-- Records of invoice
+-- ----------------------------
+INSERT INTO `invoice` VALUES (1, 1, '19/08/09/001', 'Reni', 'Cangkring Sidokare', 'Sidoarjo', '100000', '85500', '5', NULL, '2019-08-09 17:49:00', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (2, 1, '19/08/10/001', 'Pelanggan', '-', '-', '50000', '40000', '0', NULL, '2019-08-10 10:39:53', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (3, 1, '19/08/10/002', 'Pelanggan', '-', '-', '50000', '40000', '0', NULL, '2019-08-10 10:42:41', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (4, 1, '19/08/10/003', 'Pelanggan', '-', '-', '30000', '30000', '0', NULL, '2019-08-10 11:13:47', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (5, 1, '19/08/10/004', 'Pelanggan', '-', '-', '40000', '30000', '0', NULL, '2019-08-10 11:17:09', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (6, 4, '19/08/10/005', 'Pelanggan', '-', '-', '60000', '60000', '0', NULL, '2019-08-10 18:45:55', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (7, 4, '19/08/11/001', 'Pelanggan', '-', '-', '60000', '60000', '0', NULL, '2019-08-11 12:47:32', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (8, 4, '19/08/11/002', 'Pelanggan', '-', '-', '100000', '80000', '0', NULL, '2019-08-11 22:05:03', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (9, 4, '19/08/11/003', 'Pelanggan', '-', '-', '50000', '40000', '0', NULL, '2019-08-11 22:57:16', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (10, 4, '19/08/12/001', 'Pelanggan', '-', '-', '100000', '90000', '0', NULL, '2019-08-12 12:57:16', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (11, 4, '19/08/12/002', 'Pelanggan', '-', '-', '50000', '50000', '0', NULL, '2019-08-12 13:08:21', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (12, 4, '19/08/12/003', 'Pelanggan', '-', '-', '50000', '40000', '0', NULL, '2019-08-12 17:09:03', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (13, 4, '19/08/14/001', 'Pelanggan', '-', '-', '150000', '133000', '5', NULL, '2019-08-14 14:05:58', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (14, 4, '19/08/14/002', 'Pelanggan', '-', '-', '50000', '50000', '0', NULL, '2019-08-14 15:16:03', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (15, 3, '19/08/14/003', 'Pelanggan', '-', '-', '100000', '80000', '0', NULL, '2019-08-14 21:23:55', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (16, 3, '19/08/14/004', 'Pelanggan', '-', '-', '50000', '50000', '10000', NULL, '2019-08-14 21:24:41', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (17, 3, '19/08/14/005', 'Pelanggan', '-', '-', '100000', '80000', '0', NULL, '2019-08-14 22:15:56', '80000', 'Proses kirim');
+INSERT INTO `invoice` VALUES (18, 3, '19/08/14/006', 'Pelanggan', '-', '-', '60000', '55000', '5000', NULL, '2019-08-14 22:23:23', '60000', 'Proses kirim');
+INSERT INTO `invoice` VALUES (19, 3, '19/08/14/007', 'Pelanggan', '-', '-', '25000', '25000', '5000', '25000', '2019-08-14 22:28:40', '30000', 'Proses kirim');
+INSERT INTO `invoice` VALUES (20, 3, '19/08/14/008', 'Pelanggan', '-', '-', '30000', '27000', '3000', '30000', '2019-08-14 22:32:09', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (21, 3, '19/08/14/009', 'Pelanggan', '-', '-', '50000', '30000', '10000', '40000', '2019-08-14 22:33:33', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (22, 4, '19/08/21/001', 'Pelanggan', '-', '-', '700000', '690000', '0', '690000', '2019-08-21 13:10:00', 'Lunas', 'Proses kirim');
 
-insert  into `invoice`(`id_invoice`,`id_user`,`no_invoice`,`nm_invoice`,`alm_invoice`,`kota_invoice`,`byr_invoice`,`harga_invoice`,`diskon_invoice`,`tgl_invoice`,`status_bayar`,`st_invoice`) values 
-(1,1,'19/08/09/001','Reni','Cangkring Sidokare','Sidoarjo','100000','85500','5','2019-08-09 17:49:00','Lunas','Proses kirim'),
-(2,1,'19/08/10/001','Pelanggan','-','-','50000','40000','0','2019-08-10 10:39:53','Lunas','Proses kirim'),
-(3,1,'19/08/10/002','Pelanggan','-','-','50000','40000','0','2019-08-10 10:42:41','Lunas','Proses kirim'),
-(4,1,'19/08/10/003','Pelanggan','-','-','30000','30000','0','2019-08-10 11:13:47','Lunas','Proses kirim'),
-(5,1,'19/08/10/004','Pelanggan','-','-','40000','30000','0','2019-08-10 11:17:09','Lunas','Proses kirim'),
-(6,4,'19/08/10/005','Pelanggan','-','-','60000','60000','0','2019-08-10 18:45:55','Lunas','Proses kirim'),
-(7,4,'19/08/11/001','Pelanggan','-','-','60000','60000','0','2019-08-11 12:47:32','Lunas','Proses Gudang');
-
-/*Table structure for table `kategori_produk` */
-
+-- ----------------------------
+-- Table structure for kategori_produk
+-- ----------------------------
 DROP TABLE IF EXISTS `kategori_produk`;
-
-CREATE TABLE `kategori_produk` (
+CREATE TABLE `kategori_produk`  (
   `id_cat` int(11) NOT NULL AUTO_INCREMENT,
-  `nm_cat` varchar(100) DEFAULT NULL,
-  `st_cat` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`id_cat`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `nm_cat` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `st_cat` smallint(6) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_cat`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
-/*Data for the table `kategori_produk` */
+-- ----------------------------
+-- Records of kategori_produk
+-- ----------------------------
+INSERT INTO `kategori_produk` VALUES (1, 'Segi 4', 1);
+INSERT INTO `kategori_produk` VALUES (2, 'Pasmina', 1);
 
-insert  into `kategori_produk`(`id_cat`,`nm_cat`,`st_cat`) values 
-(1,'segi 4',1);
-
-/*Table structure for table `pelanggan` */
-
+-- ----------------------------
+-- Table structure for pelanggan
+-- ----------------------------
 DROP TABLE IF EXISTS `pelanggan`;
-
-CREATE TABLE `pelanggan` (
+CREATE TABLE `pelanggan`  (
   `id_plg` int(11) NOT NULL AUTO_INCREMENT,
-  `nm_plg` varchar(255) DEFAULT NULL,
-  `alm_plg` varchar(255) DEFAULT NULL,
-  `kota_plg` varchar(255) DEFAULT NULL,
-  `st_plg` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`id_plg`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `nm_plg` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `alm_plg` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `kota_plg` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `st_plg` smallint(6) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_plg`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
-/*Data for the table `pelanggan` */
+-- ----------------------------
+-- Records of pelanggan
+-- ----------------------------
+INSERT INTO `pelanggan` VALUES (1, 'Pelanggan', '-', '-', 1);
+INSERT INTO `pelanggan` VALUES (2, 'Reni', 'Cangkring Sidokare', 'Sidoarjo', 1);
+INSERT INTO `pelanggan` VALUES (3, 'Rara', 'Cangkring Sidokare', 'Gresik', 1);
+INSERT INTO `pelanggan` VALUES (4, 'Ririn', 'mmm', 'mmmm', 1);
 
-insert  into `pelanggan`(`id_plg`,`nm_plg`,`alm_plg`,`kota_plg`,`st_plg`) values 
-(1,'Pelanggan','-','-',1),
-(2,'Reni','Cangkring Sidokare','Sidoarjo',1),
-(3,'Rara','Cangkring Sidokare','Gresik',1);
-
-/*Table structure for table `produk` */
-
+-- ----------------------------
+-- Table structure for produk
+-- ----------------------------
 DROP TABLE IF EXISTS `produk`;
-
-CREATE TABLE `produk` (
+CREATE TABLE `produk`  (
   `id_produk` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) DEFAULT NULL,
-  `id_cat` int(11) DEFAULT NULL,
-  `nm_produk` varchar(255) DEFAULT NULL,
-  `stok_produk` int(11) DEFAULT NULL,
-  `beli_produk` varchar(255) DEFAULT NULL,
-  `harga_produk` varchar(255) DEFAULT NULL,
-  `ft_produk` varchar(255) DEFAULT NULL,
-  `up_produk` timestamp NULL DEFAULT NULL,
-  `st_produk` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`id_produk`),
-  KEY `fk_relationship_1` (`id_cat`),
-  KEY `fk_relationship_6` (`id_user`),
-  CONSTRAINT `fk_pr_kp` FOREIGN KEY (`id_cat`) REFERENCES `kategori_produk` (`id_cat`),
-  CONSTRAINT `fk_pr_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `id_user` int(11) NULL DEFAULT NULL,
+  `id_cat` int(11) NULL DEFAULT NULL,
+  `nm_produk` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `stok_produk` int(11) NULL DEFAULT NULL,
+  `harga_produk` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `harga3_produk` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `harga6_produk` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `harga10_produk` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `harga20_produk` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `ft_produk` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `up_produk` timestamp(0) NULL DEFAULT NULL,
+  `st_produk` smallint(6) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_produk`) USING BTREE,
+  INDEX `fk_relationship_1`(`id_cat`) USING BTREE,
+  INDEX `fk_relationship_6`(`id_user`) USING BTREE,
+  CONSTRAINT `fk_pr_kp` FOREIGN KEY (`id_cat`) REFERENCES `kategori_produk` (`id_cat`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_pr_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
-/*Data for the table `produk` */
+-- ----------------------------
+-- Records of produk
+-- ----------------------------
+INSERT INTO `produk` VALUES (1, 4, 1, 'Saudi', 60, '20000', '18000', '17000', '16000', '15000', 'user.png', '2019-08-21 13:10:45', 1);
+INSERT INTO `produk` VALUES (2, 4, 1, 'Diamond', 8, '30000', '20000', NULL, NULL, NULL, 'user.png', '2019-08-14 22:46:54', 1);
+INSERT INTO `produk` VALUES (3, 4, 2, 'Krudung Pasmina', 16, '25000', '18000', NULL, NULL, NULL, 'user.png', '2019-08-14 22:46:55', 1);
+INSERT INTO `produk` VALUES (4, 4, 2, 'Pasmina Biasa', 0, '22000', '20000', '19000', '18000', '17000', 'user.png', '2019-08-18 19:10:06', 1);
 
-insert  into `produk`(`id_produk`,`id_user`,`id_cat`,`nm_produk`,`stok_produk`,`beli_produk`,`harga_produk`,`ft_produk`,`up_produk`,`st_produk`) values 
-(1,1,1,'Saudi',13,'15000','20000','user.png','2019-08-10 10:43:39',1),
-(2,4,1,'Diamond',15,'20000','30000','user.png','2019-08-10 18:46:26',1);
-
-/*Table structure for table `user` */
-
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
 DROP TABLE IF EXISTS `user`;
-
-CREATE TABLE `user` (
+CREATE TABLE `user`  (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
-  `id_lvl` int(11) DEFAULT NULL,
-  `name_user` varchar(100) DEFAULT NULL,
-  `username` varchar(100) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `ft_user` varchar(255) DEFAULT NULL,
-  `last_user` timestamp NULL DEFAULT NULL,
-  `st_user` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`id_user`),
-  KEY `fk_relationship_5` (`id_lvl`),
-  CONSTRAINT `fk_relationship_5` FOREIGN KEY (`id_lvl`) REFERENCES `user_level` (`id_lvl`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `id_lvl` int(11) NULL DEFAULT NULL,
+  `name_user` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `username` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `password` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `ft_user` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `last_user` timestamp(0) NULL DEFAULT NULL,
+  `st_user` smallint(6) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_user`) USING BTREE,
+  INDEX `fk_relationship_5`(`id_lvl`) USING BTREE,
+  CONSTRAINT `fk_relationship_5` FOREIGN KEY (`id_lvl`) REFERENCES `user_level` (`id_lvl`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
-/*Data for the table `user` */
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES (1, 1, 'Ririn', 'Admin', '202cb962ac59075b964b07152d234b70', NULL, 'user.png', '2019-08-10 22:54:26', 1);
+INSERT INTO `user` VALUES (2, 3, 'Lilo', 'Kasir1', '202446dd1d6028084426867365b0c7a1', NULL, 'user.png', '2019-07-27 11:15:42', 1);
+INSERT INTO `user` VALUES (3, 3, 'Jono', 'Kasir2', '202cb962ac59075b964b07152d234b70', 'kasir@motto.co.id', 'user.png', '2019-08-18 19:08:08', 1);
+INSERT INTO `user` VALUES (4, 2, 'Uzi', 'Sukses', '202cb962ac59075b964b07152d234b70', NULL, 'user.png', '2019-08-14 21:52:10', 1);
 
-insert  into `user`(`id_user`,`id_lvl`,`name_user`,`username`,`password`,`email`,`ft_user`,`last_user`,`st_user`) values 
-(1,1,'Ririn','Admin','202cb962ac59075b964b07152d234b70',NULL,'user.png','2019-08-10 22:54:26',1),
-(2,3,'Lilo','Kasir1','202446dd1d6028084426867365b0c7a1',NULL,'user.png','2019-07-27 11:15:42',1),
-(3,3,'Jono','Kasir2','202cb962ac59075b964b07152d234b70','kasir@motto.co.id','user.png','2019-08-10 18:45:02',1),
-(4,2,'Uzi','Sukses','202cb962ac59075b964b07152d234b70',NULL,'user.png','2019-08-10 18:22:07',1);
-
-/*Table structure for table `user_level` */
-
+-- ----------------------------
+-- Table structure for user_level
+-- ----------------------------
 DROP TABLE IF EXISTS `user_level`;
-
-CREATE TABLE `user_level` (
+CREATE TABLE `user_level`  (
   `id_lvl` int(11) NOT NULL AUTO_INCREMENT,
-  `nm_lvl` varchar(50) DEFAULT NULL,
-  `st_lvl` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`id_lvl`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `nm_lvl` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `st_lvl` smallint(6) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_lvl`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
-/*Data for the table `user_level` */
+-- ----------------------------
+-- Records of user_level
+-- ----------------------------
+INSERT INTO `user_level` VALUES (1, 'admin', 1);
+INSERT INTO `user_level` VALUES (2, 'kepalatoko', 1);
+INSERT INTO `user_level` VALUES (3, 'kasir', 1);
 
-insert  into `user_level`(`id_lvl`,`nm_lvl`,`st_lvl`) values 
-(1,'admin',1),
-(2,'kepalatoko',1),
-(3,'kasir',1),
-(4,'ahlu',1);
+-- ----------------------------
+-- View structure for harian
+-- ----------------------------
+DROP VIEW IF EXISTS `harian`;
+CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER VIEW `harian` AS SELECT
+	i.no_invoice AS no_invoice,
+	i.nm_invoice AS nm_invoice,
+	i.kota_invoice AS kota_invoice,
+	p.nm_produk AS nm_produk,
+	di.qty_di AS qty_di,
+	di.total_di AS total_di,
+	i.harga_invoice AS harga_invoice,
+	i.diskon_invoice AS diskon_invoice,
+	i.tgl_invoice AS tgl_invoice
+FROM
+	detail_invoice di
+	JOIN invoice i ON i.id_invoice = di.id_invoice
+	JOIN produk p ON p.id_produk = di.id_produk ;
 
-/*Table structure for table `harian` */
+-- ----------------------------
+-- View structure for semua_pro_ke
+-- ----------------------------
+DROP VIEW IF EXISTS `semua_pro_ke`;
+CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER VIEW `semua_pro_ke` AS SELECT SUM(jumlah_stok) AS totalkeluar from gudang WHERE keterangan LIKE '%keluar' ;
 
-DROP TABLE IF EXISTS `harian`;
+-- ----------------------------
+-- View structure for semua_pro_ma
+-- ----------------------------
+DROP VIEW IF EXISTS `semua_pro_ma`;
+CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER VIEW `semua_pro_ma` AS SELECT SUM(jumlah_stok) AS totalmasuk from gudang WHERE keterangan LIKE '%masuk' ;
 
-/*!50001 DROP VIEW IF EXISTS `harian` */;
-/*!50001 DROP TABLE IF EXISTS `harian` */;
-
-/*!50001 CREATE TABLE  `harian`(
- `no_invoice` varchar(255) ,
- `nm_invoice` varchar(255) ,
- `kota_invoice` varchar(255) ,
- `nm_produk` varchar(255) ,
- `qty_di` int(11) ,
- `total_di` varchar(255) ,
- `harga_invoice` varchar(255) ,
- `diskon_invoice` varchar(255) ,
- `tgl_invoice` timestamp 
-)*/;
-
-/*View structure for view harian */
-
-/*!50001 DROP TABLE IF EXISTS `harian` */;
-/*!50001 DROP VIEW IF EXISTS `harian` */;
-
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `harian` AS select `i`.`no_invoice` AS `no_invoice`,`i`.`nm_invoice` AS `nm_invoice`,`i`.`kota_invoice` AS `kota_invoice`,`p`.`nm_produk` AS `nm_produk`,`di`.`qty_di` AS `qty_di`,`di`.`total_di` AS `total_di`,`i`.`harga_invoice` AS `harga_invoice`,`i`.`diskon_invoice` AS `diskon_invoice`,`i`.`tgl_invoice` AS `tgl_invoice` from ((`detail_invoice` `di` join `invoice` `i` on((`i`.`id_invoice` = `di`.`id_invoice`))) join `produk` `p` on((`p`.`id_produk` = `di`.`id_produk`))) */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+SET FOREIGN_KEY_CHECKS = 1;

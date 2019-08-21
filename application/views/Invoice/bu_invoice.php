@@ -62,6 +62,9 @@
                 </select>
               </div>
           </div>
+          <div class="form-group col-md-2 col-sm-2 col-xs-12">
+              <a class="btn btn-success" onclick="refresh();"><i class="fa fa-refresh"></i></a>
+            </div>
         </form>
           <div class="row" id="detail">
             <div class="col-sm-12 col-xs-12 col-md-12">
@@ -95,7 +98,101 @@
 <!-- end page content -->
 
 <script>
-  
+  function refresh() {
+      location.reload();
+    }
+  if ($('#bulan').val()==""){
+    $('#tahun').change(function(){
+    var tah = $('#tahun').val();
+     $.ajax({
+        url : "<?php echo base_url();?>invoice/get_invoiceta",
+        type : 'post',
+        dataType : 'json',
+        data : {tah:tah},
+        success : function(data)
+        {
+          
+          // alert(JSON.stringify(data));
+          var html = '';
+          for (i=0; i<data.length; i++){
+            html += '<tr>'+
+                        '<td>'+data[i].no_invoice+'</td>'+
+                        '<td>'+data[i].nm_invoice+'</td>'+
+                        '<td>'+data[i].kota_invoice+'</td>'+
+                        '<td>'+data[i].nm_produk+'</td>'+
+                        '<td>'+data[i].qty_di+'</td>'+
+                        '<td>'+data[i].total_di+'</td>'+
+                        '<td>'+data[i].harga_invoice+'</td>'+
+                        '<td>'+data[i].diskon_invoice+'</td>'+
+                        '<td>'+data[i].tgl_invoice+'</td>'+
+                        '</tr>';
+          }
+          $('#tampil').html(html);
+        }
+      });
+    });
+    $('#tahun').change(function(){
+    var tah = $('#tahun').val();
+     $.ajax({
+        url : "<?php echo base_url();?>invoice/get_invoiceta1",
+        type : 'post',
+        dataType : 'json',
+        data : {tah:tah},
+        success : function(data)
+        {
+          for (i=0; i<data.length; i++){
+            $('#total1').val(data[i].total);
+          }
+        }
+      });
+    });
+    $('#tahun').change(function(){
+    var tah = $('#tahun').val();
+     $.ajax({
+        url : "<?php echo base_url();?>invoice/get_invoiceta2",
+        type : 'post',
+        dataType : 'json',
+        data : {tah:tah},
+        success : function(data)
+        {
+          for (i=0; i<data.length; i++){
+            $('#total2').val(data[i].total);
+          }
+        }
+      });
+    });
+    $('#tahun').change(function(){
+    var tah = $('#tahun').val();
+     $.ajax({
+        url : "<?php echo base_url();?>invoice/get_invoiceta3",
+        type : 'post',
+        dataType : 'json',
+        data : {tah:tah},
+        success : function(data)
+        {
+          for (i=0; i<data.length; i++){
+            $('#total3').val(data[i].total);
+          }
+        }
+      });
+    });
+    $('#tahun').change(function(){
+    var tah = $('#tahun').val();
+     $.ajax({
+        url : "<?php echo base_url();?>invoice/get_invoiceta4",
+        type : 'post',
+        dataType : 'json',
+        data : {tah:tah},
+        success : function(data)
+        {
+          for (i=0; i<data.length; i++){
+            $('#total4').val(data[i].total);
+          }
+        }
+      });
+    });
+  }
+  if ($('#bulan').val()!=null){  
     $('#bulan').change(function(){
     var tah = $('#tahun').val();
     var bul = $('#bulan').val();
@@ -190,4 +287,5 @@
         }
       });
     });
+  }
     </script>

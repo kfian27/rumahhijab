@@ -80,13 +80,13 @@ class invoice extends CI_Controller {
 		$id_produk = (int)$this->input->post('id_produk');
 		$qty = (int)$this->input->post('qty');
 		$harga_produk = ((int)$this->input->post('harga_produk')*$qty);
-        $save_data = array(
-          	'id_produk'   		=> $id_produk,
-          	'id_invoice'      	=> $this->session->userdata('id'),
-          	'qty_di'		=> $qty,
-          	'total_di'		=> $harga_produk,
-          	'st_di'   	=> STATUS_ACTIVE
-        );
+			$save_data = array(
+	          	'id_produk'   	=> $id_produk,
+	          	'id_invoice'    => $this->session->userdata('id'),
+	          	'qty_di'		=> $qty,
+	          	'total_di'		=> $harga_produk,
+	          	'st_di'   		=> STATUS_ACTIVE
+        	);	
         $this->minvoice_model->save_tmp($save_data);
 	}
 
@@ -118,6 +118,7 @@ class invoice extends CI_Controller {
     	$data = $this->minvoice_model->get_trid($tglnya);
     	$no_invoice = '';
     	$totalnya = $this->input->post('harga_invoice');
+    	$totalh = $this->input->post('totalHidden');
     	foreach ($data as $row) {
     		$nomernya = (int) substr($row->no_max, 9, 3);
     		$nomernya++;
@@ -134,7 +135,7 @@ class invoice extends CI_Controller {
     		if ($this->input->post('bayar')<$totalnya) {
     			$status_bayar = "Belum lunas";
     		}
-    		$insert_id = $this->minvoice_model->insert($no_invoice, $this->input->post('nm_plg'),$this->input->post('alm_plg'),$this->input->post('kota_plg'),$this->input->post('bayar'),$totalnya,$this->input->post('diskon'),$status_bayar);
+    		$insert_id = $this->minvoice_model->insert($no_invoice, $this->input->post('nm_plg'),$this->input->post('alm_plg'),$this->input->post('kota_plg'),$this->input->post('bayar'),$totalnya,$this->input->post('diskon'),$totalh,$status_bayar);
     	}
     	$data = $this->minvoice_model->get_tmp_all();
     	foreach ($data as $row) 
@@ -156,14 +157,23 @@ class invoice extends CI_Controller {
     public function ha_invoice()
 	{
 		$this->cek_login();
+		$this->load->model('mcat_model');
+		$data['kategori_detail'] = $this->mcat_model->get();
 		$this->load->view('baseadmin/header.php');
-		$this->load->view('invoice/ha_invoice.php');
+		$this->load->view('invoice/ha_invoice.php', $data);
 		$this->load->view('baseadmin/footer.php');
 	}
 	public function get_invoicehari()
 	  {
 	    $tgl = $this->input->post("tgl");
 	    $detail = $this->minvoice_model->get_invoicehari($tgl);
+	    echo json_encode($detail);
+	  }
+	  public function get_invoiceharii()
+	  {
+	    $tgl = $this->input->post("tgl");
+	    $cat = $this->input->post("cat");
+	    $detail = $this->minvoice_model->get_invoiceharii($tgl,$cat);
 	    echo json_encode($detail);
 	  }
 	  public function get_invoicehari1()
@@ -274,14 +284,7 @@ class invoice extends CI_Controller {
 	    echo json_encode($detail);
 	  }
 
-	  //Bulanan
-    public function ta_invoice()
-	{
-		$this->cek_login();
-		$this->load->view('baseadmin/header.php');
-		$this->load->view('invoice/ta_invoice.php');
-		$this->load->view('baseadmin/footer.php');
-	}
+	  //Tahunan
 	public function get_invoiceta()
 	  {
 	    $tah = $this->input->post("tah");
@@ -312,6 +315,12 @@ class invoice extends CI_Controller {
 	    $detail = $this->minvoice_model->get_produkmasuk_ta($tah);
 	    echo json_encode($detail);
 	  }
+
+	public function cek(){
+    $produk= $this->input->post("produk");
+    $detail = $this->minvoice_model->cek($produk);
+    echo json_encode($detail);
+  	}
 
 }
 ?>

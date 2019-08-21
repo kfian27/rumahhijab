@@ -31,6 +31,9 @@ class master extends CI_Controller {
 	public function produk()
 	{
 		$this->cek_login();
+		if ($this->session->userdata('level') == 3){
+	    	echo ("<script language='javascript'>alert('Anda bukan Kepala Toko !');window.location.href = '../invoice/t_invoice';</script>");
+	    }else{
 		$this->load->model('mproduk_model');
 		$this->load->model('mcat_model');
 		$data['produk_detail'] = $this->mproduk_model->get();
@@ -38,15 +41,20 @@ class master extends CI_Controller {
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('master/produk.php',$data);
 		$this->load->view('baseadmin/footer.php');
+		}
 	}
 	public function cat_produk()
 	{
 		$this->cek_login();
+		if ($this->session->userdata('level') == 3){
+	    	echo ("<script language='javascript'>alert('Anda bukan Kepala Toko !');window.location.href = '../invoice/t_invoice';</script>");
+	    }else{
 		$this->load->model('mcat_model');
 		$data['kategori_detail'] = $this->mcat_model->get();
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('master/kategori_produk.php',$data);
 		$this->load->view('baseadmin/footer.php');
+		}
 	}
 	public function user()
 	{

@@ -41,8 +41,14 @@
   			 $query = $this->db->get();
   			 return $query->result();
         }
+
+        function cek($produk){
+			$sql= "select * from produk where id_produk = '$produk'";
+			$query= $this->db->query($sql);
+			return $query->result();
+		}
         
-        function insert($no_invoice=false,$nm_invoice=false,$alm_invoice=false,$kota_invoice=false,$byr_invoice=false,$harga_invoice=false,$diskon_invoice=false,$status_bayar=false)
+        function insert($no_invoice=false,$nm_invoice=false,$alm_invoice=false,$kota_invoice=false,$byr_invoice=false,$harga_invoice=false,$diskon_invoice=false,$tagihan_invoice=false,$status_bayar=false)
 		{
 			$data = array();
 			if($no_invoice !== false)$data['no_invoice'] = trim($no_invoice);
@@ -52,6 +58,7 @@
 			if($harga_invoice !== false)$data['harga_invoice'] = trim($harga_invoice);
 			if($byr_invoice !== false)$data['byr_invoice'] = trim($byr_invoice);
 			if($diskon_invoice !== false)$data['diskon_invoice'] = trim($diskon_invoice);
+			if($tagihan_invoice !== false)$data['tagihan_invoice'] = trim($tagihan_invoice);
 			if($status_bayar !== false)$data['status_bayar'] = trim($status_bayar);
 			$data['tgl_invoice'] = now();
 			$data['id_user']= $this->session->userdata('id');
@@ -88,6 +95,10 @@
 			$this->db->select('id_di');
 			$this->db->select('nm_produk');
 			$this->db->select('harga_produk');
+			$this->db->select('harga3_produk');
+			$this->db->select('harga6_produk');
+			$this->db->select('harga10_produk');
+			$this->db->select('harga20_produk');
 			$this->db->select('qty_di');
 			$this->db->select('total_di');
 			$this->db->from('detail_invoice_tmp dt');
@@ -97,7 +108,22 @@
 			$i = 0;
 			foreach ($query->result() as $row) {
 				$i++;
-				$output .= '<tr><td>'.$i.'</td><td>'.$row->nm_produk.'</td><td>'.$row->harga_produk.'</td><td>'.$row->qty_di.'</td><td>'.$row->total_di.'</td><td><button id="del" dt-id="'.$row->id_di.'" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td></tr>';
+				if($row->qty_di < 3){
+					$output .= '<tr><td>'.$i.'</td><td>'.$row->nm_produk.'</td><td>'.$row->harga_produk.'</td><td>'.$row->qty_di.'</td><td>'.$row->total_di.'</td><td><button id="del" dt-id="'.$row->id_di.'" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td></tr>';
+				}
+				elseif($row->qty_di >= 3 && $row->qty_di < 6){
+					$output .= '<tr><td>'.$i.'</td><td>'.$row->nm_produk.'</td><td>'.$row->harga3_produk.'</td><td>'.$row->qty_di.'</td><td>'.$row->total_di.'</td><td><button id="del" dt-id="'.$row->id_di.'" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td></tr>';
+				}
+				elseif($row->qty_di >= 6 && $row->qty_di < 10){
+					$output .= '<tr><td>'.$i.'</td><td>'.$row->nm_produk.'</td><td>'.$row->harga6_produk.'</td><td>'.$row->qty_di.'</td><td>'.$row->total_di.'</td><td><button id="del" dt-id="'.$row->id_di.'" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td></tr>';
+				}
+				elseif($row->qty_di >= 10 && $row->qty_di < 20){
+					$output .= '<tr><td>'.$i.'</td><td>'.$row->nm_produk.'</td><td>'.$row->harga10_produk.'</td><td>'.$row->qty_di.'</td><td>'.$row->total_di.'</td><td><button id="del" dt-id="'.$row->id_di.'" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td></tr>';
+				}
+				elseif($row->qty_di >= 20){
+					$output .= '<tr><td>'.$i.'</td><td>'.$row->nm_produk.'</td><td>'.$row->harga20_produk.'</td><td>'.$row->qty_di.'</td><td>'.$row->total_di.'</td><td><button id="del" dt-id="'.$row->id_di.'" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td></tr>';
+				}
+				
 			}
 
 			return $output;
@@ -163,7 +189,7 @@
 		}
 
 		function get_di_all($nomer_invoice){
-			$sql = "SELECT produk.nm_produk, produk.harga_produk, detail_invoice.id_di, detail_invoice.qty_di, detail_invoice.total_di, invoice.no_invoice, invoice.nm_invoice, invoice.alm_invoice, invoice.kota_invoice, invoice.harga_invoice,invoice.byr_invoice FROM produk, detail_invoice, invoice where detail_invoice.id_produk = produk.id_produk and detail_invoice.id_invoice = invoice.id_invoice and invoice.id_invoice = $nomer_invoice";
+			$sql = "SELECT produk.nm_produk, produk.harga_produk, detail_invoice.id_di, detail_invoice.qty_di, detail_invoice.total_di, invoice.no_invoice, invoice.nm_invoice, invoice.alm_invoice, invoice.kota_invoice, invoice.harga_invoice,invoice.byr_invoice, invoice.diskon_invoice FROM produk, detail_invoice, invoice where detail_invoice.id_produk = produk.id_produk and detail_invoice.id_invoice = invoice.id_invoice and invoice.id_invoice = $nomer_invoice";
 			$query = $this->db->query($sql);
 			return $query->result();
 		}
@@ -205,6 +231,27 @@
 						JOIN invoice i ON i.id_invoice = di.id_invoice
 						JOIN produk p ON p.id_produk = di.id_produk 
 						WHERE DATE(tgl_invoice)  = '$tanggal' order by no_invoice";
+            $sql = $this->db->query($query);
+            return $sql->result();
+         }
+         function get_invoiceharii($tanggal,$id_cat)
+         {
+            $query = "SELECT
+						i.no_invoice AS no_invoice,
+						i.nm_invoice AS nm_invoice,
+						i.kota_invoice AS kota_invoice,
+						p.nm_produk AS nm_produk,
+						di.qty_di AS qty_di,
+						di.total_di AS total_di,
+						i.harga_invoice AS harga_invoice,
+						i.diskon_invoice AS diskon_invoice,
+						i.tgl_invoice AS tgl_invoice
+					FROM
+						detail_invoice di
+						JOIN invoice i ON i.id_invoice = di.id_invoice
+						JOIN produk p ON p.id_produk = di.id_produk 
+						WHERE DATE(tgl_invoice)  = '$tanggal' AND id_cat = '$id_cat' 
+						order by no_invoice";
             $sql = $this->db->query($query);
             return $sql->result();
          }

@@ -48,6 +48,7 @@
                       <th data-priority="1">No invoice</th>
                       <th>Nama Pembeli</th>
                       <th>Kota</th>
+                      <th>Diskon</th>
                       <th>Harga</th>
                       <th>Tanggal Pembelian</th>
                       <th>Status</th>
@@ -62,6 +63,7 @@
                       <td><?php echo $row->no_invoice; ?></td>
                       <td><?php echo $row->nm_invoice; ?></td>
                       <td><?php echo $row->kota_invoice; ?></td>
+                      <td><?php echo $row->diskon_invoice; ?></td>
                       <td><?php echo $row->harga_invoice; ?></td>
                       <td><?php echo $row->tgl_invoice; $a++; ?></td>
                       <td><?php echo $row->st_invoice; ?></td>

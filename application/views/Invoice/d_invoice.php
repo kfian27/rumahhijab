@@ -67,8 +67,13 @@
                       <td><?php echo $key->total_di; ?></td>
                       <?php $total_harga = $key->harga_invoice; ?>
                       <?php $bayar = $key->byr_invoice; ?>
+                      <?php $diskon = $key->diskon_invoice; ?>
                     </tr>
                     <?php endforeach; ?>
+                    <tr>
+                      <td colspan="3" style="text-align: center;">DISKON</td>
+                      <td><?php echo $diskon;?></td>
+                    </tr>
                     <tr>
                       <td colspan="3" style="text-align: center;">TOTAL</td>
                       <td><?php echo $total_harga;?></td>

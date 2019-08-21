@@ -30,11 +30,25 @@
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
-          <div class="form-group" >
-              <div class="input-group col-md-3 col-sm-3 col-xs-12">
-                <input type="text" class="form-control" placeholder="Masukkan Tanggal" name="tanggal" id="tanggal">
+          <form class="form-horizontal" enctype="multipart/form-data">
+            <div class="form-group col-md-4 col-sm-4 col-xs-12">
+              <input type="text" class="form-control" placeholder="Masukkan Tanggal" name="tanggal" id="tanggal">
+            </div>
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+              <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Kategori  </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select class="form-control" name="id_cat" id="id_cat">
+                  <option value="">-- Semua Kategori --</option>
+                  <?php foreach ($kategori_detail as $row): ?>
+                  <option value="<?php echo $row->id_cat;?>"><?php echo $row->nm_cat;?></option>
+                  <?php endforeach; ?>
+                </select>
               </div>
             </div>
+            <div class="form-group col-md-2 col-sm-2 col-xs-12">
+              <a class="btn btn-success" onclick="refresh();"><i class="fa fa-refresh"></i></a>
+            </div>
+          </form>
           <div class="row" id="detail">
             <div class="col-sm-12 col-xs-12 col-md-12">
               <div class="table-responsive">
@@ -72,7 +86,10 @@
           format: 'YYYY-MM-DD'
         });
       });
-  
+  function refresh() {
+      location.reload();
+    }
+  if ($('#id_cat').val()==""){
     $('#tanggal').on('dp.change',function(e){
     var tgl = $('#tanggal').val();
     // alert(tgl);
@@ -103,6 +120,40 @@
         }
       });
     });
+  }
+  if ($('#id_cat').val()!=null){
+    $('#id_cat').change(function(){
+    var tgl = $('#tanggal').val();
+    var cat = $('#id_cat').val();
+    // alert(tgl);
+     $.ajax({
+        url : "<?php echo base_url();?>invoice/get_invoiceharii",
+        type : 'post',
+        dataType : 'json',
+        data : {tgl:tgl,cat:cat},
+        success : function(data)
+        {
+          
+          // alert(JSON.stringify(data));
+          var html = '';
+          for (i=0; i<data.length; i++){
+            html += '<tr>'+
+                        '<td>'+data[i].no_invoice+'</td>'+
+                        '<td>'+data[i].nm_invoice+'</td>'+
+                        '<td>'+data[i].kota_invoice+'</td>'+
+                        '<td>'+data[i].nm_produk+'</td>'+
+                        '<td>'+data[i].qty_di+'</td>'+
+                        '<td>'+data[i].total_di+'</td>'+
+                        '<td>'+data[i].harga_invoice+'</td>'+
+                        '<td>'+data[i].diskon_invoice+'</td>'+
+                        '<td>'+data[i].tgl_invoice+'</td>'+
+                        '</tr>';
+          }
+          $('#tampil').html(html);
+        }
+      });
+    });
+  }
     $('#tanggal').on('dp.change',function(e){
     var tgl = $('#tanggal').val();
     // alert(tgl);

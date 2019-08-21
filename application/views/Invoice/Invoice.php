@@ -14,6 +14,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pelanggan">Pelanggan <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="input-group">
                   <select id="pelanggan" name="pelanggan" class="form-control col-md-12 col-sm-12 col-xs-12" style="width: 100%;" required="required">
                     <option></option>
                     <?php foreach ($pelanggan_detail as $key): ?>
@@ -21,8 +22,9 @@
                     <?php endforeach; ?>
                   </select>
                   <span class="input-group-btn">
-                    <button id="tombol-tambah" class="btn btn-primary" onclick="javascript:tambah();"> Tambah <i class="fa fa-plus"></i></button>
+                    <button id="tombol-tambah" class="btn btn-primary" onclick="javascript:tambah();"><i class="fa fa-plus"></i></button>
                   </span>
+                </div>
                 </div>
               </div>
               <div class="plg" style="display: none;">
@@ -47,16 +49,25 @@
               </div>
               <div class="ln_solid"></div>
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ekspedisi">produk <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="produk">produk <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select id="produk" name="produk" class="form-control col-md-12 col-sm-12 col-xs-12" style="width: 100%;">
                     <option></option>
                     <?php foreach ($produk_detail as $key): ?>
-                      <option value="<?php echo $key->id_produk; ?>" harga="<?php echo $key->harga_produk; ?>"><?php echo $key->nm_produk; ?></option>
+                      <option value="<?php echo $key->id_produk; ?>" 
+                        harga="<?php echo $key->harga_produk; ?>"
+                        harga3="<?php echo $key->harga3_produk; ?>"
+                        harga6="<?php echo $key->harga6_produk; ?>"
+                        harga10="<?php echo $key->harga10_produk; ?>"
+                        harga20="<?php echo $key->harga20_produk; ?>"
+                        ><?php echo $key->nm_produk; ?></option>
                     <?php endforeach; ?>
                   </select>
                 </div>
+              </div>
+              <div class="item form-group" >
+                <label class="control-label col-md-5 col-sm-5 col-xs-12" style="display: none;" id="notif"><p style="color: red;">STOK TIDAK CUKUP</p></label>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ekspedisi">Quantity <span class="required">*</span>
@@ -79,7 +90,7 @@
                       <th>Harga (satuan)</th>
                       <th>Quantity</th>
                       <th>Jumlah</th>
-                      <th>Delete</th>
+                      <th>Hapus</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -87,24 +98,24 @@
                 </table>
               </div>
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="berat">Sub Total
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="berat">Tagihan Awal
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="hidden" id="totalHidden" name="totalHidden" class="form-control col-md-7 col-xs-12" disabled>
+                  <input type="hidden" id="totalHidden" name="totalHidden" class="form-control col-md-7 col-xs-12">
                   <input type="text" id="total" name="total" class="form-control col-md-7 col-xs-12" disabled>
                 </div>
               </div>
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="berat">Diskon
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="berat">Diskon (Rp.)
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="diskon" name="diskon" class="form-control col-md-7 col-xs-12" required>
-                  <span class="form-control-feedback right" aria-hidden="true">%</span>
+                  <input type="text" id="diskon" name="diskon" placeholder="Diskon dalam bentuk bilangan rupiah. Contoh 5000" class="form-control col-md-7 col-xs-12" required>
+                  <span class="form-control-feedback right" aria-hidden="true">.00</span>
                 </div>
               </div>
               <div class="ln_solid"></div>
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="berat">Total
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="berat">Tagihan Akhir
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input type="hidden" id="harga_invoice" name="harga_invoice" class="form-control col-md-7 col-xs-12">
@@ -113,14 +124,15 @@
               </div>
               <div class="ln_solid"></div>
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bayar">Bayar
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bayar">Tunai (Rp.)
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="number" id="bayar" name="bayar" data-validate-minmax="1000,10000000" class="form-control col-md-7 col-xs-12" required>
+                  <input type="number" id="bayar" name="bayar" data-validate-minmax="1000,100000000" class="form-control col-md-7 col-xs-12" required>
+                  <span class="form-control-feedback right" aria-hidden="true">.00</span>
                 </div>
               </div>
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kembali">Kembali
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kembali">Kembalian
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input type="hidden" id="kembaliHidden" name="kembaliHidden" class="form-control col-md-7 col-xs-12" disabled>
@@ -140,20 +152,20 @@
           <form class="form-horizontal"  method="post" id="detail-tambah" name="detail-tambah" enctype="multipart/form-data">
             <input type="hidden" name="id_plg" id="id_plg">
             <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                <label for="tiga" class="col-sm-2 control-label"> Nama Toko/Pelanggan </label>
-                <div class="col-md-10 col-sm-10 col-xs-10">
+                <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Nama Pelanggan </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
                   <input type="text" class="form-control" placeholder="Nama Toko" name="nm_plg" id="nm_plg" required>
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                <label for="tiga" class="col-sm-2 control-label"> Alamat </label>
-                <div class="col-md-10 col-sm-10 col-xs-10">
+                <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Alamat </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
                   <input type="text" class="form-control" placeholder="Alamat" name="alm_plg" id="alm_plg" required>
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-              <label for="tiga" class="col-sm-2 control-label"> Kota </label>
-              <div class="col-md-10 col-sm-10 col-xs-10">
+              <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Kota </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" class="form-control" placeholder="Kota" name="kota_plg" id="kota_plg" required>
                 <!-- <select class="form-control" name="kota_plg" id="kota_plg" required="required">
                   <option value="0">-pilih produk-</option>
@@ -213,6 +225,29 @@ function simpan(url){
   });
 }
 
+ $('#qty').keyup(function(){
+    var produk = $('#produk').val();
+    var qtynya = $('#qty').val();
+     $.ajax({
+        url : "<?php echo base_url();?>mproduk/get_detail/"+produk,
+        type : 'post',
+        dataType : 'json',
+        // data : {produk:produk},
+        success : function(data)
+        {
+           // $('#coba').val(data.data.stok_produk);
+            if (qtynya > data.data.stok_produk) {
+                $('#notif').show();
+                $('#simpan').attr('disabled',true);
+            }
+            if (qtynya <= data.data.stok_produk){
+              $('#notif').hide();
+              $('#simpan').attr('disabled',false);
+            }
+        }
+    });
+  });
+
   $(document).ready(function(){
     fill_table();
     fill_subttl();
@@ -255,7 +290,17 @@ function simpan(url){
   $('#add_produk').click(function(){
     var id_produk = $('#produk').val();
     var qty = $('#qty').val();
-    var harga_produk = $('#produk option:selected').attr("harga");
+    if (qty < 3){
+      var harga_produk = $('#produk option:selected').attr("harga");
+    }if (qty >= 3 && qty < 6){
+      var harga_produk = $('#produk option:selected').attr("harga3");
+    }if (qty >= 6 && qty < 10){
+      var harga_produk = $('#produk option:selected').attr("harga6");
+    }if (qty >= 10 && qty < 20){
+      var harga_produk = $('#produk option:selected').attr("harga10");
+    }if (qty >= 20){
+      var harga_produk = $('#produk option:selected').attr("harga20");
+    }
     if(id_produk && qty)
     {
         $.ajax({
@@ -314,6 +359,8 @@ function simpan(url){
             if (data.DT_TOTAL != null){
                 $('#totalHidden').val(data.DT_TOTAL);
                 $('#total').val(to_rupiah(data.DT_TOTAL));
+                $('#diskon').val("0");
+                fill_ttl();
             }else{
                 $('#total').val('Rp. 0');
             }
@@ -327,7 +374,8 @@ function simpan(url){
   });
 
   function fill_ttl(){
-    subttl = Number($('#totalHidden').val())-(Number($('#totalHidden').val())* Number($('#diskon').val())/100);
+    // subttl = Number($('#totalHidden').val())-(Number($('#totalHidden').val())* Number($('#diskon').val())/100);
+    subttl = Number($('#totalHidden').val())-Number($('#diskon').val());
     if (subttl != null){
         $('#harga_invoice').val(subttl);
         $('#grandtotal').val(to_rupiah(subttl));

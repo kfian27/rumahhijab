@@ -30,8 +30,11 @@
                     <th>#</th>
                     <th>Nama</th>
                     <th>Jenis</th>
-                    <th>Harga Jual</th>
-                    <th>Harga Beli</th>
+                    <th>Harga < 3</th>
+                    <th>Harga 3 - 5</th>
+                    <th>Harga 6 - 9</th>
+                    <th>Harga 10 - 19</th>
+                    <th>Harga 20 ></th>
                     <th>Stok</th>
                     <th>Update</th>
                     <th>Action</th>
@@ -42,9 +45,12 @@
                 <tr>
                     <td><?php echo $a; ?></td>
                     <td><?php echo $row->nm_produk;?></td>
-                    <td><?php echo $row->id_cat;?></td>
+                    <td><?php echo $row->nm_cat;?></td>
                     <td><?php echo $row->harga_produk;?></td>
-                    <td><?php echo $row->beli_produk;?></td>
+                    <td><?php echo $row->harga3_produk;?></td>
+                    <td><?php echo $row->harga6_produk;?></td>
+                    <td><?php echo $row->harga10_produk;?></td>
+                    <td><?php echo $row->harga20_produk;?></td>
                     <td><?php echo $row->stok_produk;?></td>
                     <td><?php echo $row->up_produk; $a++; ?></td>
                     <td>
@@ -79,15 +85,33 @@
               </div>
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-              <label for="tiga" class="col-sm-2 control-label">Harga jual </label>
+              <label for="tiga" class="col-sm-2 control-label">Harga < 3 </label>
               <div class="col-md-10 col-sm-10 col-xs-10">
                 <input type="number" class="form-control" placeholder="harga" name="harga_produk" id="harga_produk" required>
               </div>
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-              <label for="tiga" class="col-sm-2 control-label">Harga beli </label>
+              <label for="tiga" class="col-sm-2 control-label">Harga 3 - 5 </label>
               <div class="col-md-10 col-sm-10 col-xs-10">
-                <input type="number" class="form-control" placeholder="harga" name="beli_produk" id="beli_produk" required>
+                <input type="number" class="form-control" placeholder="harga" name="harga3_produk" id="harga3_produk" required>
+              </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+              <label for="tiga" class="col-sm-2 control-label">Harga 6 - 9 </label>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <input type="number" class="form-control" placeholder="harga" name="harga6_produk" id="harga6_produk" required>
+              </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+              <label for="tiga" class="col-sm-2 control-label">Harga 10 - 19 </label>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <input type="number" class="form-control" placeholder="harga" name="harga10_produk" id="harga10_produk" required>
+              </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+              <label for="tiga" class="col-sm-2 control-label">Harga 20 > </label>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <input type="number" class="form-control" placeholder="harga" name="harga20_produk" id="harga20_produk" required>
               </div>
           </div>
           <div class="col-md-12 col-sm-12 col-xs-12 form-group">
@@ -167,7 +191,10 @@ function tambah(){
     $('#id_produk').val("");
     $('#nm_produk').val("");
     $('#harga_produk').val("");
-    $('#beli_produk').val("");
+    $('#harga3_produk').val("");
+    $('#harga6_produk').val("");
+    $('#harga10_produk').val("");
+    $('#harga20_produk').val("");
     $('#imagenya').hide();
     $('#fotonya').val("");
 }
@@ -234,7 +261,10 @@ function ubah(url){
             $('#nm_produk').val(data.data.nm_produk);
             $('#id_cat').val(data.data.id_cat);
             $('#harga_produk').val(data.data.harga_produk);
-            $('#beli_produk').val(data.data.beli_produk);
+            $('#harga3_produk').val(data.data.harga3_produk);
+            $('#harga6_produk').val(data.data.harga6_produk);
+            $('#harga10_produk').val(data.data.harga10_produk);
+            $('#harga20_produk').val(data.data.harga20_produk);
             $('#id_produk').val(data.data.id_produk);
             $('#imagenya').attr("src","<?php echo base_url();?>assets/uploads/produk/"+fotomu);
             $('#fotonya').val(data.data.ft_produk);
