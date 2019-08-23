@@ -11,7 +11,7 @@
  Target Server Version : 100122
  File Encoding         : 65001
 
- Date: 21/08/2019 14:14:57
+ Date: 23/08/2019 16:43:00
 */
 
 SET NAMES utf8mb4;
@@ -25,6 +25,7 @@ CREATE TABLE `detail_invoice`  (
   `id_di` int(11) NOT NULL AUTO_INCREMENT,
   `id_invoice` int(11) NULL DEFAULT NULL,
   `id_produk` int(255) NULL DEFAULT NULL,
+  `harga_di` int(11) NULL DEFAULT NULL,
   `qty_di` int(11) NULL DEFAULT NULL,
   `total_di` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `st_di` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
@@ -33,42 +34,48 @@ CREATE TABLE `detail_invoice`  (
   INDEX `fk_di_invo`(`id_invoice`) USING BTREE,
   CONSTRAINT `fk_di_invo` FOREIGN KEY (`id_invoice`) REFERENCES `invoice` (`id_invoice`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_di_produk` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of detail_invoice
 -- ----------------------------
-INSERT INTO `detail_invoice` VALUES (1, 1, 1, 3, '60000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (2, 1, 2, 1, '30000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (3, 2, 1, 2, '40000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (4, 3, 1, 2, '40000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (5, 4, 2, 1, '30000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (6, 5, 2, 1, '30000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (7, 6, 2, 2, '60000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (8, 7, 2, 2, '60000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (9, 8, 1, 4, '80000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (10, 9, 1, 2, '40000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (11, 10, 2, 3, '90000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (12, 11, 1, 1, '20000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (13, 11, 2, 1, '30000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (14, 12, 1, 2, '40000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (15, 13, 1, 4, '80000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (16, 13, 2, 2, '60000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (17, 14, 3, 2, '50000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (18, 15, 3, 2, '50000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (19, 15, 2, 1, '30000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (20, 16, 2, 2, '60000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (21, 17, 2, 2, '60000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (22, 17, 1, 1, '20000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (23, 18, 2, 2, '60000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (24, 19, 2, 1, '30000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (25, 20, 2, 1, '30000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (26, 21, 1, 2, '40000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (27, 22, 1, 6, '102000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (28, 22, 1, 4, '72000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (29, 22, 1, 20, '300000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (30, 22, 1, 11, '176000', 'kirim');
-INSERT INTO `detail_invoice` VALUES (31, 22, 1, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (1, 1, 1, NULL, 3, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (2, 1, 2, NULL, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (3, 2, 1, NULL, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (4, 3, 1, NULL, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (5, 4, 2, NULL, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (6, 5, 2, NULL, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (7, 6, 2, NULL, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (8, 7, 2, NULL, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (9, 8, 1, NULL, 4, '80000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (10, 9, 1, NULL, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (11, 10, 2, NULL, 3, '90000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (12, 11, 1, NULL, 1, '20000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (13, 11, 2, NULL, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (14, 12, 1, NULL, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (15, 13, 1, NULL, 4, '80000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (16, 13, 2, NULL, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (17, 14, 3, NULL, 2, '50000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (18, 15, 3, NULL, 2, '50000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (19, 15, 2, NULL, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (20, 16, 2, NULL, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (21, 17, 2, NULL, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (22, 17, 1, NULL, 1, '20000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (23, 18, 2, NULL, 2, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (24, 19, 2, NULL, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (25, 20, 2, NULL, 1, '30000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (26, 21, 1, NULL, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (27, 22, 1, NULL, 6, '102000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (28, 22, 1, NULL, 4, '72000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (29, 22, 1, NULL, 20, '300000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (30, 22, 1, NULL, 11, '176000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (31, 22, 1, NULL, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (32, 23, 1, NULL, 3, '54000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (33, 23, 2, NULL, 3, '60000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (34, 24, 1, NULL, 2, '40000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (35, 25, 1, 18000, 3, '54000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (36, 25, 1, 16000, 10, '160000', 'kirim');
+INSERT INTO `detail_invoice` VALUES (37, 26, 1, 18000, 4, '72000', 'kirim');
 
 -- ----------------------------
 -- Table structure for detail_invoice_tmp
@@ -78,12 +85,13 @@ CREATE TABLE `detail_invoice_tmp`  (
   `id_di` int(11) NOT NULL AUTO_INCREMENT,
   `id_invoice` int(11) NULL DEFAULT NULL,
   `id_produk` int(255) NULL DEFAULT NULL,
+  `harga_di` int(11) NULL DEFAULT NULL,
   `qty_di` int(11) NULL DEFAULT NULL,
   `total_di` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `st_di` smallint(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id_di`) USING BTREE,
   INDEX `fk_di_produk`(`id_produk`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for gudang
@@ -102,7 +110,7 @@ CREATE TABLE `gudang`  (
   INDEX `FK_RELATIONSHIP_8`(`id_produk`) USING BTREE,
   CONSTRAINT `fk_gu_pro` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_gu_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of gudang
@@ -144,6 +152,12 @@ INSERT INTO `gudang` VALUES (34, 4, 1, '19/08/21/001', 4, 'Barang keluar', '2019
 INSERT INTO `gudang` VALUES (35, 4, 1, '19/08/21/001', 20, 'Barang keluar', '2019-08-21 13:10:36');
 INSERT INTO `gudang` VALUES (36, 4, 1, '19/08/21/001', 11, 'Barang keluar', '2019-08-21 13:10:38');
 INSERT INTO `gudang` VALUES (37, 4, 1, '19/08/21/001', 2, 'Barang keluar', '2019-08-21 13:10:44');
+INSERT INTO `gudang` VALUES (38, 4, 1, '19/08/22/001', 3, 'Barang keluar', '2019-08-22 17:35:13');
+INSERT INTO `gudang` VALUES (39, 4, 1, '19/08/22/002', 2, 'Barang keluar', '2019-08-22 17:35:16');
+INSERT INTO `gudang` VALUES (40, 4, 2, '19/08/22/001', 3, 'Barang keluar', '2019-08-22 17:35:17');
+INSERT INTO `gudang` VALUES (41, 4, 1, '19/08/22/003', 3, 'Barang keluar', '2019-08-22 19:09:03');
+INSERT INTO `gudang` VALUES (42, 4, 1, '19/08/22/003', 10, 'Barang keluar', '2019-08-22 19:09:08');
+INSERT INTO `gudang` VALUES (43, 4, 1, '19/08/22/004', 4, 'Barang keluar', '2019-08-22 19:18:10');
 
 -- ----------------------------
 -- Table structure for invoice
@@ -166,7 +180,7 @@ CREATE TABLE `invoice`  (
   PRIMARY KEY (`id_invoice`) USING BTREE,
   INDEX `fk_relationship_3`(`id_user`) USING BTREE,
   CONSTRAINT `fk_in_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of invoice
@@ -193,6 +207,10 @@ INSERT INTO `invoice` VALUES (19, 3, '19/08/14/007', 'Pelanggan', '-', '-', '250
 INSERT INTO `invoice` VALUES (20, 3, '19/08/14/008', 'Pelanggan', '-', '-', '30000', '27000', '3000', '30000', '2019-08-14 22:32:09', 'Lunas', 'Proses kirim');
 INSERT INTO `invoice` VALUES (21, 3, '19/08/14/009', 'Pelanggan', '-', '-', '50000', '30000', '10000', '40000', '2019-08-14 22:33:33', 'Lunas', 'Proses kirim');
 INSERT INTO `invoice` VALUES (22, 4, '19/08/21/001', 'Pelanggan', '-', '-', '700000', '690000', '0', '690000', '2019-08-21 13:10:00', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (23, 4, '19/08/22/001', 'Pelanggan', '-', '-', '120000', '114000', '0', '114000', '2019-08-22 12:39:56', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (24, 4, '19/08/22/002', 'Pelanggan', '-', '-', '50000', '40000', '0', '40000', '2019-08-22 13:01:33', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (25, 4, '19/08/22/003', 'Pelanggan', '-', '-', '220000', '214000', '0', '214000', '2019-08-22 18:59:55', 'Lunas', 'Proses kirim');
+INSERT INTO `invoice` VALUES (26, 4, '19/08/22/004', 'Pelanggan', '-', '-', '75000', '72000', '0', '72000', '2019-08-22 19:18:01', 'Lunas', 'Proses kirim');
 
 -- ----------------------------
 -- Table structure for kategori_produk
@@ -260,8 +278,8 @@ CREATE TABLE `produk`  (
 -- ----------------------------
 -- Records of produk
 -- ----------------------------
-INSERT INTO `produk` VALUES (1, 4, 1, 'Saudi', 60, '20000', '18000', '17000', '16000', '15000', 'user.png', '2019-08-21 13:10:45', 1);
-INSERT INTO `produk` VALUES (2, 4, 1, 'Diamond', 8, '30000', '20000', NULL, NULL, NULL, 'user.png', '2019-08-14 22:46:54', 1);
+INSERT INTO `produk` VALUES (1, 4, 1, 'Saudi', 38, '20000', '18000', '17000', '16000', '15000', 'user.png', '2019-08-22 19:18:10', 1);
+INSERT INTO `produk` VALUES (2, 4, 1, 'Diamond', 5, '30000', '20000', NULL, NULL, NULL, 'user.png', '2019-08-22 17:35:17', 1);
 INSERT INTO `produk` VALUES (3, 4, 2, 'Krudung Pasmina', 16, '25000', '18000', NULL, NULL, NULL, 'user.png', '2019-08-14 22:46:55', 1);
 INSERT INTO `produk` VALUES (4, 4, 2, 'Pasmina Biasa', 0, '22000', '20000', '19000', '18000', '17000', 'user.png', '2019-08-18 19:10:06', 1);
 
@@ -290,7 +308,7 @@ CREATE TABLE `user`  (
 INSERT INTO `user` VALUES (1, 1, 'Ririn', 'Admin', '202cb962ac59075b964b07152d234b70', NULL, 'user.png', '2019-08-10 22:54:26', 1);
 INSERT INTO `user` VALUES (2, 3, 'Lilo', 'Kasir1', '202446dd1d6028084426867365b0c7a1', NULL, 'user.png', '2019-07-27 11:15:42', 1);
 INSERT INTO `user` VALUES (3, 3, 'Jono', 'Kasir2', '202cb962ac59075b964b07152d234b70', 'kasir@motto.co.id', 'user.png', '2019-08-18 19:08:08', 1);
-INSERT INTO `user` VALUES (4, 2, 'Uzi', 'Sukses', '202cb962ac59075b964b07152d234b70', NULL, 'user.png', '2019-08-14 21:52:10', 1);
+INSERT INTO `user` VALUES (4, 2, 'Uzi', 'Sukses', '202cb962ac59075b964b07152d234b70', NULL, 'user.png', '2019-08-22 20:18:15', 1);
 
 -- ----------------------------
 -- Table structure for user_level

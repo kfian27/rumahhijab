@@ -359,31 +359,11 @@ function AddPage($orientation='', $size='', $rotation=0)
 
 function Header()
 {
-	    $this->SetFont('Arial','B', 12);
-        $this->Cell(190,7,'Contoh Judul',0,1,'C');
-        $this->Cell(10,7,'',0,1);
-        $this->SetFont('Arial', 'B', 7);
-        $this->Cell(10,6,'No',1,0);
-        $this->Cell(30,6,'retailer_country',1,0);
-        $this->Cell(30,6,'order_method_type',1,0);
-        $this->Cell(30,6,'retailer_type',1,0);
-        $this->Cell(30,6,'product_line',1,0);
-        $this->Cell(30,6,'product_type',1,0);
-        $this->Cell(40,6,'product',1,0);
-        $this->Cell(30,6,'year',1,0);
-        $this->Cell(30,6,'quantity',1,1);
 	// To be implemented in your own inherited class
 }
 
 function Footer()
 {
-	$this->SetY(-15);
-	//buat garis horizontal
-	$this->Line(10,$this->GetY(),200,$this->GetY());
-	//Arial italic 9
-	$this->SetFont('Arial','I',9);
-	//nomor halaman
-	$this->Cell(0,10,'Halaman '.$this->PageNo().' dari {nb}',0,0,'R');
 	// To be implemented in your own inherited class
 }
 
@@ -1011,7 +991,7 @@ function Output($dest='', $name='', $isUTF8=false)
 	if($dest=='')
 		$dest = 'I';
 	if($name=='')
-		$name = 'LAPORAN MONEV KOMINFO.pdf';
+		$name = 'doc.pdf';
 	switch(strtoupper($dest))
 	{
 		case 'I':

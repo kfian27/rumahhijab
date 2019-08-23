@@ -30,7 +30,7 @@
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
-          <form class="form-horizontal" enctype="multipart/form-data">
+          <form action="<?php echo base_url(); ?>laporan/pdf_minggu" method="POST" target="_blank">
             <div class="form-group col-md-4 col-sm-4 col-xs-12" >
               <input type="text" class="form-control" placeholder="Pilih Tanggal Sebelum Hari ini" name="tanggal" id="tanggal">
             </div>
@@ -39,6 +39,9 @@
             </div>
             <div class="form-group col-md-3 col-sm-3 col-xs-12" >
               <input type="text" class="form-control" placeholder="Tanggal Hari ini" disabled>
+            </div>
+            <div class="form-group col-md-2 col-sm-3 col-xs-12"> <!-- Submit button -->
+              <button class="btn btn-default" id="pdfhr" type="submit"><i class="fa fa-file-pdf-o"></i></button>
             </div>
           </form>
         </div>
@@ -53,10 +56,11 @@
                       <th>Pelanggan</th>
                       <th>Asal</th>
                       <th>Produk</th>
+                      <th>Harga</th>
                       <th>Qty</th>
                       <th>Sub Total</th>
-                      <th>Total Harga</th>
                       <th>Diskon</th>
+                      <th>Total Harga</th>
                       <th>Tanggal</th>
                     </tr>
                   </thead>
@@ -100,10 +104,11 @@
                         '<td>'+data[i].nm_invoice+'</td>'+
                         '<td>'+data[i].kota_invoice+'</td>'+
                         '<td>'+data[i].nm_produk+'</td>'+
+                        '<td>'+data[i].harga_di+'</td>'+
                         '<td>'+data[i].qty_di+'</td>'+
                         '<td>'+data[i].total_di+'</td>'+
-                        '<td>'+data[i].harga_invoice+'</td>'+
                         '<td>'+data[i].diskon_invoice+'</td>'+
+                        '<td>'+data[i].harga_invoice+'</td>'+
                         '<td>'+data[i].tgl_invoice+'</td>'+
                         '</tr>';
           }

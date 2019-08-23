@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ajaxresponse{
+class Ajaxresponse{
 	var $status; 	// [ok, failed]
 	var $message; 	// array
 	var $data;		// array

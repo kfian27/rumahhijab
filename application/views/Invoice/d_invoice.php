@@ -35,10 +35,6 @@
                       <td><?php echo $key->nm_invoice; ?></td>
                     </tr>
                    <tr>
-                      <td>ALAMAT</td>
-                      <td><?php echo $key->alm_invoice; ?></td>
-                    </tr>
-                   <tr>
                       <td>KOTA</td>
                       <td><?php echo $key->kota_invoice; ?></td>
                     </tr>
@@ -63,7 +59,7 @@
                     <tr>
                       <td><?php echo $key->nm_produk; ?></td>
                       <td><?php echo $key->qty_di; ?></td>
-                      <td><?php echo $key->harga_produk; ?></td>
+                      <td><?php echo $key->harga_di; ?></td>
                       <td><?php echo $key->total_di; ?></td>
                       <?php $total_harga = $key->harga_invoice; ?>
                       <?php $bayar = $key->byr_invoice; ?>

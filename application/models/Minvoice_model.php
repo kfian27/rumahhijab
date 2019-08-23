@@ -20,12 +20,10 @@
 		    	$this->db->select('harga_invoice');
 		    	$this->db->select('diskon_invoice');
 		    	$this->db->select('tgl_invoice');
-		    	$this->db->select('status_bayar');
-		    	$this->db->select('st_invoice');
 	    	}
             	$this->db->from('invoice');
 		}
-		function get($where = "", $order = "id_invoice asc", $limit=null, $offset=null, $selectcolumn = true){
+		function get($where = "", $order = "", $limit=null, $offset=null, $selectcolumn = true){
   			 $this->select($selectcolumn);
   			 if($limit != null) $this->db->limit($limit, $offset);
   			 if($where != "") $this->db->where($where);
@@ -33,15 +31,6 @@
   			 $query = $this->db->get();
   			 return $query->result();
         }
-        function get_c($where = "", $order = "", $limit=null, $offset=null, $selectcolumn = true){
-  			 $this->select($selectcolumn);
-  			 if($limit != null) $this->db->limit($limit, $offset);
-  			 if($where != "") $this->db->where($where);
-  			 $this->db->order_by($order);
-  			 $query = $this->db->get();
-  			 return $query->result();
-        }
-
         function cek($produk){
 			$sql= "select * from produk where id_produk = '$produk'";
 			$query= $this->db->query($sql);
@@ -189,7 +178,32 @@
 		}
 
 		function get_di_all($nomer_invoice){
-			$sql = "SELECT produk.nm_produk, produk.harga_produk, detail_invoice.id_di, detail_invoice.qty_di, detail_invoice.total_di, invoice.no_invoice, invoice.nm_invoice, invoice.alm_invoice, invoice.kota_invoice, invoice.harga_invoice,invoice.byr_invoice, invoice.diskon_invoice FROM produk, detail_invoice, invoice where detail_invoice.id_produk = produk.id_produk and detail_invoice.id_invoice = invoice.id_invoice and invoice.id_invoice = $nomer_invoice";
+			$sql = "SELECT
+						i.id_invoice AS id_invoice,
+						i.no_invoice AS no_invoice,
+						i.nm_invoice AS nm_invoice,
+						i.alm_invoice AS alm_invoice,
+						i.byr_invoice AS byr_invoice,
+						i.kota_invoice AS kota_invoice,
+						p.nm_produk AS nm_produk,
+						di.harga_di AS harga_di,
+						di.qty_di AS qty_di,
+						di.total_di AS total_di,
+						i.harga_invoice AS harga_invoice,
+						i.diskon_invoice AS diskon_invoice,
+						i.tgl_invoice AS tgl_invoice
+					FROM
+						detail_invoice di
+						JOIN invoice i ON i.id_invoice = di.id_invoice
+						JOIN produk p ON p.id_produk = di.id_produk 
+						WHERE i.id_invoice = '$nomer_invoice' ORDER BY no_invoice DESC";
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
+		function get_c(){
+			$sql = "SELECT *
+					FROM invoice
+					WHERE DATE(tgl_invoice)  = CURRENT_DATE ORDER BY no_invoice DESC";
 			$query = $this->db->query($sql);
 			return $query->result();
 		}
@@ -221,6 +235,7 @@
 						i.nm_invoice AS nm_invoice,
 						i.kota_invoice AS kota_invoice,
 						p.nm_produk AS nm_produk,
+						di.harga_di AS harga_di,
 						di.qty_di AS qty_di,
 						di.total_di AS total_di,
 						i.harga_invoice AS harga_invoice,
@@ -230,7 +245,7 @@
 						detail_invoice di
 						JOIN invoice i ON i.id_invoice = di.id_invoice
 						JOIN produk p ON p.id_produk = di.id_produk 
-						WHERE DATE(tgl_invoice)  = '$tanggal' order by no_invoice";
+						WHERE DATE(tgl_invoice)  = '$tanggal' ORDER BY no_invoice DESC";
             $sql = $this->db->query($query);
             return $sql->result();
          }
@@ -241,6 +256,7 @@
 						i.nm_invoice AS nm_invoice,
 						i.kota_invoice AS kota_invoice,
 						p.nm_produk AS nm_produk,
+						di.harga_di AS harga_di,
 						di.qty_di AS qty_di,
 						di.total_di AS total_di,
 						i.harga_invoice AS harga_invoice,
@@ -251,7 +267,7 @@
 						JOIN invoice i ON i.id_invoice = di.id_invoice
 						JOIN produk p ON p.id_produk = di.id_produk 
 						WHERE DATE(tgl_invoice)  = '$tanggal' AND id_cat = '$id_cat' 
-						order by no_invoice";
+						order by no_invoice DESC";
             $sql = $this->db->query($query);
             return $sql->result();
          }
@@ -284,6 +300,7 @@
 						i.nm_invoice AS nm_invoice,
 						i.kota_invoice AS kota_invoice,
 						p.nm_produk AS nm_produk,
+						di.harga_di AS harga_di,
 						di.qty_di AS qty_di,
 						di.total_di AS total_di,
 						i.harga_invoice AS harga_invoice,
@@ -332,6 +349,7 @@
 						i.nm_invoice AS nm_invoice,
 						i.kota_invoice AS kota_invoice,
 						p.nm_produk AS nm_produk,
+						di.harga_di AS harga_di,
 						di.qty_di AS qty_di,
 						di.total_di AS total_di,
 						i.harga_invoice AS harga_invoice,
@@ -384,6 +402,7 @@
 						i.nm_invoice AS nm_invoice,
 						i.kota_invoice AS kota_invoice,
 						p.nm_produk AS nm_produk,
+						di.harga_di AS harga_di,
 						di.qty_di AS qty_di,
 						di.total_di AS total_di,
 						i.harga_invoice AS harga_invoice,

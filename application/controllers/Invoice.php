@@ -57,7 +57,7 @@ class invoice extends CI_Controller {
 		$data['totalsemuainvoice_c'] = $this->minvoice_model->get_totalsemuainvoice_c();
 		$data['totalproduk_c'] = $this->minvoice_model->get_totalproduk_c();
 		$data['produkmasuk_c'] = $this->minvoice_model->get_produkmasuk_c();
-		$data['invoice_detail_c'] = $this->minvoice_model->get_c('DATE(tgl_invoice) = CURDATE();');
+		$data['invoice_detail_c'] = $this->minvoice_model->get_c();
 		$this->load->view('baseadmin/header.php');
 		$this->load->view('invoice/c_invoice.php',$data);
 		$this->load->view('baseadmin/footer.php');
@@ -79,12 +79,14 @@ class invoice extends CI_Controller {
 	{
 		$id_produk = (int)$this->input->post('id_produk');
 		$qty = (int)$this->input->post('qty');
-		$harga_produk = ((int)$this->input->post('harga_produk')*$qty);
+		$harga = (int)$this->input->post('harga_produk');
+		$harga_total = ((int)$this->input->post('harga_produk')*$qty);
 			$save_data = array(
 	          	'id_produk'   	=> $id_produk,
 	          	'id_invoice'    => $this->session->userdata('id'),
+	          	'harga_di'		=> $harga,
 	          	'qty_di'		=> $qty,
-	          	'total_di'		=> $harga_produk,
+	          	'total_di'		=> $harga_total,
 	          	'st_di'   		=> STATUS_ACTIVE
         	);	
         $this->minvoice_model->save_tmp($save_data);
@@ -143,6 +145,7 @@ class invoice extends CI_Controller {
       		$save_data = array(
       			'id_produk'			=> $row->id_produk,
 				'id_invoice'			=> $insert_id,
+				'harga_di'		=> $row->harga_di,
 				'qty_di'		=> $row->qty_di,
 				'total_di'		=> $row->total_di,
 				'st_di'		=> "gudang"

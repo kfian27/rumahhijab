@@ -49,10 +49,8 @@
                       <th>Nama Pembeli</th>
                       <th>Kota</th>
                       <th>Diskon</th>
-                      <th>Harga</th>
+                      <th>Total</th>
                       <th>Tanggal Pembelian</th>
-                      <th>Status</th>
-                      <th data-priority="2">Kasir</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -66,13 +64,8 @@
                       <td><?php echo $row->diskon_invoice; ?></td>
                       <td><?php echo $row->harga_invoice; ?></td>
                       <td><?php echo $row->tgl_invoice; $a++; ?></td>
-                      <td><?php echo $row->st_invoice; ?></td>
-                      <td><?php echo $row->id_user; ?></td>
                       <td>
                         <a href="<?php echo base_url()?>/invoice/d_invoice/<?php echo $row->id_invoice;?>" class="btn btn-info">Detail</a>
-                        <?php if($row->status_bayar=="Belum lunas"):?>
-                        <a href="<?php echo base_url()?>/invoice/d_invoice/<?php echo $row->id_invoice;?>" class="btn btn-success">Bayar</a>
-                      <?php endif; ?>
                       </td>
                   </tr>
                     <?php endforeach; ?>

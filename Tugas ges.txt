@@ -1,5 +1,3 @@
 yang belum:
 - print sturuk
 - otomatis stok berkurang tanpa persetujuan
-- pdf untuk perhari, hari-kehari, bulanan
-- order by desc untuk setiap laporan dari hari dst...

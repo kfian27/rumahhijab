@@ -30,11 +30,11 @@
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
-          <form class="form-horizontal" enctype="multipart/form-data">
-            <div class="form-group col-md-4 col-sm-4 col-xs-12">
+          <form action="<?php echo base_url(); ?>laporan/pdf_hari" method="POST" target="_blank"">
+            <div class="form-group col-md-3 col-sm-6 col-xs-12">
               <input type="text" class="form-control" placeholder="Masukkan Tanggal" name="tanggal" id="tanggal">
             </div>
-            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <div class="form-group col-md-5 col-sm-6 col-xs-12">
               <label for="tiga" class="col-md-3 col-sm-3 col-xs-12 control-label"> Kategori  </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control" name="id_cat" id="id_cat">
@@ -45,7 +45,10 @@
                 </select>
               </div>
             </div>
-            <div class="form-group col-md-2 col-sm-2 col-xs-12">
+            <div class="form-group col-md-1 col-sm-6 col-xs-6">
+              <button class="btn btn-default" id="pdfhr" type="submit"><i class="fa fa-file-pdf-o"></i></button>
+            </div>
+            <div class="form-group col-md-1 col-sm-6 col-xs-6">
               <a class="btn btn-success" onclick="refresh();"><i class="fa fa-refresh"></i></a>
             </div>
           </form>
@@ -59,10 +62,11 @@
                       <th>Pelanggan</th>
                       <th>Asal</th>
                       <th>Produk</th>
+                      <th>Harga</th>
                       <th>Qty</th>
                       <th>Sub Total</th>
-                      <th>Total Harga</th>
                       <th>Diskon</th>
+                      <th>Total Harga</th>
                       <th>Tanggal</th>
                     </tr>
                   </thead>
@@ -109,10 +113,11 @@
                         '<td>'+data[i].nm_invoice+'</td>'+
                         '<td>'+data[i].kota_invoice+'</td>'+
                         '<td>'+data[i].nm_produk+'</td>'+
+                        '<td>'+data[i].harga_di+'</td>'+
                         '<td>'+data[i].qty_di+'</td>'+
                         '<td>'+data[i].total_di+'</td>'+
-                        '<td>'+data[i].harga_invoice+'</td>'+
                         '<td>'+data[i].diskon_invoice+'</td>'+
+                        '<td>'+data[i].harga_invoice+'</td>'+
                         '<td>'+data[i].tgl_invoice+'</td>'+
                         '</tr>';
           }
@@ -142,10 +147,11 @@
                         '<td>'+data[i].nm_invoice+'</td>'+
                         '<td>'+data[i].kota_invoice+'</td>'+
                         '<td>'+data[i].nm_produk+'</td>'+
+                        '<td>'+data[i].harga_di+'</td>'+
                         '<td>'+data[i].qty_di+'</td>'+
                         '<td>'+data[i].total_di+'</td>'+
-                        '<td>'+data[i].harga_invoice+'</td>'+
                         '<td>'+data[i].diskon_invoice+'</td>'+
+                        '<td>'+data[i].harga_invoice+'</td>'+
                         '<td>'+data[i].tgl_invoice+'</td>'+
                         '</tr>';
           }
