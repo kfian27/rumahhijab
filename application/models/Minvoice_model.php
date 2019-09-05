@@ -17,12 +17,38 @@
 		    	$this->db->select('alm_invoice');
 		    	$this->db->select('kota_invoice');
 		    	$this->db->select('byr_invoice');
+		    	$this->db->select('tagihan_invoice');
 		    	$this->db->select('harga_invoice');
 		    	$this->db->select('diskon_invoice');
 		    	$this->db->select('tgl_invoice');
 	    	}
             	$this->db->from('invoice');
 		}
+		public function select1($selectcolumn=true){
+	    	if($selectcolumn){
+		    	$this->db->select('id_invoice');
+		    	$this->db->select('name_user');
+		    	$this->db->select('no_invoice');
+		    	$this->db->select('nm_invoice');
+		    	$this->db->select('alm_invoice');
+		    	$this->db->select('kota_invoice');
+		    	$this->db->select('byr_invoice');
+		    	$this->db->select('tagihan_invoice');
+		    	$this->db->select('harga_invoice');
+		    	$this->db->select('diskon_invoice');
+		    	$this->db->select('tgl_invoice');
+	    	}
+            	$this->db->from('invoice');
+            	$this->db->join('user','user.id_user = invoice.id_user');
+		}
+		function print($where = "", $order = "", $limit=null, $offset=null, $selectcolumn = true){
+  			 $this->select1($selectcolumn);
+  			 if($limit != null) $this->db->limit($limit, $offset);
+  			 if($where != "") $this->db->where($where);
+  			 $this->db->order_by($order);
+  			 $query = $this->db->get();
+  			 return $query->result();
+        }
 		function get($where = "", $order = "", $limit=null, $offset=null, $selectcolumn = true){
   			 $this->select($selectcolumn);
   			 if($limit != null) $this->db->limit($limit, $offset);
@@ -71,6 +97,7 @@
 
 		function save_dt($data){
 			$this->db->insert('detail_invoice', $data);
+			return $this->db->insert_id();
 		}		
 
 		function get_trid($no_invoice){
@@ -159,7 +186,7 @@
         {
 			$this->db->select('id_di');
 			$this->db->select('nm_produk');
-			$this->db->select('harga_produk');
+			$this->db->select('harga_di');
 			$this->db->select('qty_di');
 			$this->db->select('total_di');
 			$this->db->where('id_invoice', $id_invoice);
@@ -207,12 +234,12 @@
 			$query = $this->db->query($sql);
 			return $query->result();
 		}
-		function update_kirim($id_invoice=false)
+		function update_kirim($no_invoice=false)
 		{
 			$data = array();
       		$data['st_invoice'] = 'Proses kirim';
 
-			return $this->db->update('invoice', $data, "id_invoice = $id_invoice");
+			return $this->db->update('invoice', $data, "no_invoice = '$no_invoice'");
 		}
 		function update_invo($id_invoice=false,$harga_invoice=false)
 		{

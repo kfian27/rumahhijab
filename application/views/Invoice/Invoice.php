@@ -72,9 +72,9 @@
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ekspedisi">Quantity <span class="required">*</span>
                 </label>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                  <div class="input-group">
-                    <input type="number" id="qty" name="qty" class="form-control" data-validate-minmax="1, 100">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="input-group" >
+                    <input type="number" id="qty" name="qty" class="form-control" data-validate-minmax="1, 999">
                     <span class="input-group-btn">
                       <button id="add_produk" type="button" class="btn btn-info ">Submit dan Tambah Item</button>
                     </span>
@@ -227,7 +227,8 @@ function simpan(url){
 
  $('#qty').keyup(function(){
     var produk = $('#produk').val();
-    var qtynya = $('#qty').val();
+    var qtynya = parseInt($('#qty').val());
+    // alert(qtynya);
      $.ajax({
         url : "<?php echo base_url();?>mproduk/get_detail/"+produk,
         type : 'post',
@@ -235,14 +236,18 @@ function simpan(url){
         // data : {produk:produk},
         success : function(data)
         {
+          // alert(data.data.stok_produk);
+          var stoknya = parseInt(data.data.stok_produk);
            // $('#coba').val(data.data.stok_produk);
-            if (qtynya > data.data.stok_produk) {
+            if (qtynya > stoknya) {
                 $('#notif').show();
                 $('#simpan').attr('disabled',true);
+                $('#add_produk').attr('disabled',true);
             }
-            if (qtynya <= data.data.stok_produk){
+            if (qtynya <= stoknya){
               $('#notif').hide();
               $('#simpan').attr('disabled',false);
+              $('#add_produk').attr('disabled',false);
             }
         }
     });

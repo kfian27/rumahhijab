@@ -1,4 +1,9 @@
 <?php
+require APPPATH . 'libraries\escpos-php\autoload.php';
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\EscposImage;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class invoice extends CI_Controller {
@@ -26,6 +31,9 @@ class invoice extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->model('minvoice_model');
+		$this->load->model('Mgudang_model');
+		$this->load->model('Mproduk_model');
+		$this->load->model('Muser_model');
 		$this->load->helper(array('form', 'url', 'file','download'));
     }
 	public function index(){redirect(base_url("admin"));}
@@ -150,11 +158,114 @@ class invoice extends CI_Controller {
 				'total_di'		=> $row->total_di,
 				'st_di'		=> "gudang"
       		);
-      		$this->minvoice_model->save_dt($save_data);
+      		$idnya = $this->minvoice_model->save_dt($save_data);
+      		$this->keluar($idnya,$row->id_produk,$row->qty_di,$no_invoice);
       	}
+      	$this->print_nota($no_invoice,$insert_id);
+      	$this->load->library('session');
+      	$this->session->set_tempdata('no_invoice', $no_invoice, 7200);
       	$this->minvoice_model->delete_tmp();
 		redirect('invoice/t_invoice');
     }
+
+    function print_nota($no_invoice,$insert_id)
+    {
+    	$Pelanggan = ''; $NO = ''; $Tagihan_Awal = ''; $Diskon = ''; $Tagihan_Akhir = ''; $Bayar = ''; $TGL = ''; $Kasir = '';
+    	$data = $this->minvoice_model->print("no_invoice = '".$no_invoice."'");
+    	foreach ($data as $row) {
+    		$NO = $row->no_invoice; $Pelanggan = $row->nm_invoice; 
+    		$Tagihan_Awal = $row->tagihan_invoice;
+    		$Diskon = $row->diskon_invoice;
+    		$Tagihan_Akhir = $row->harga_invoice;
+    		$Bayar = $row->byr_invoice;
+    		$TGL = $row->tgl_invoice;
+    		$Kasir = $row->name_user;
+    	}
+    	$Produk = ''; $QTY = ''; $Harga_Satuan = '';
+    	$plg = $this->minvoice_model->get_detail($insert_id);
+    		foreach ($plg as $key) {
+    			$Produk = $key->nm_produk;
+    			$QTY = $key->qty_di;
+    			$Harga_Satuan = $key->harga_di;
+    		}
+		try {
+			// Enter the device file for your USB printer here
+	  		$connector = new WindowsPrintConnector("XP-58");
+		   
+			/* Print a "Hello world" receipt" */
+			$printer = new Printer($connector);
+			$printer -> feed();
+			$printer -> setJustification(Printer::JUSTIFY_CENTER);
+			$printer -> text("RUMAH HIJAB ALIEFAH\n");
+			// $printer -> text("--------------------------------\n");
+			// $printer -> text("Jl. Medayu Utara XXX D4-No. 4\n");
+			$printer -> text("Sidokare - Sidoarjo - SDA\n");
+			// $printer -> text("Telp. 0857-3142-2142\n");
+			$printer -> text("--------------------------------\n");
+			$printer -> setJustification(Printer::JUSTIFY_LEFT);
+			$printer -> text("No.       : ");
+			$printer -> text($no_invoice."\n");
+			$printer -> text("Tanggal   : ");
+			$printer -> text(date('d-m-Y H:i:s')."\n");
+			$printer -> text("Kasir     : ");
+			$printer -> text($Kasir."\n");
+			$printer -> text("Pelanggan : ");
+			$printer -> text($Pelanggan."\n");
+			$printer -> feed();
+			$printer -> setJustification(Printer::JUSTIFY_LEFT);
+			$printer -> text("Hijab/Krudung      QTY     Harga\n");
+    			$printer -> text($Produk);
+    			$printer -> setJustification(Printer::JUSTIFY_RIGHT);
+    			$printer -> text(sprintf("%6d", $QTY)."  ");
+    			$printer -> text(sprintf("%10d",$Harga_Satuan)."\n");
+			$printer -> feed();
+			$printer -> setJustification(Printer::JUSTIFY_LEFT);
+			$printer -> text("  Tagihan Awal  :     ");
+			$printer -> text(sprintf("%10d",$Tagihan_Awal)."\n");
+			$printer -> text("  Diskon (Rp.)  :     ");
+			$printer -> text(sprintf("%10d",$Diskon)."\n");
+			$printer -> text("  ----------------------------.-\n");
+			$printer -> text("  Tagihan Akhir :     ");
+			$printer -> text(sprintf("%10d",$Tagihan_Akhir)."\n");
+			$printer -> text("  Tunai         :     ");
+			$printer -> text(sprintf("%10d",$Bayar)."\n");
+			$printer -> text("  Kembalian     :     ");
+			$printer -> text(sprintf("%10d",(int)$Bayar - (int)$Tagihan_Akhir)."\n");
+			$printer -> setJustification(Printer::JUSTIFY_CENTER);
+			$printer -> text("Terima Kasih Telah Belanja di\n");
+			$printer -> text("RUMAH HIJAB ALIEFAH\n");
+			$printer -> text("*Barang yang sudah dibeli\n");
+			$printer -> text(" tidak dapat dikembalikan\n");
+			$printer -> feed(3);
+
+			/* Close printer */
+			$printer -> close();
+		} catch (Exception $e) {
+			echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
+		}
+    }
+
+    public function keluar($idnya,$id_produk,$ambil,$nomer_invoice){
+  		$jumlah_stok = '';
+  		$data['detail'] = $this->Mproduk_model->get("id_produk = '".$id_produk."'");
+  		foreach ($data['detail'] as $key) {
+      		$jumlah_stok = $key->stok_produk - $ambil;
+      	}
+      	$data['data_invoice'] = $this->minvoice_model->get("no_invoice = '".$nomer_invoice."'");
+      	$nomer_invoicenya = '';
+      	foreach ($data['data_invoice'] as $key) {
+      		$nomer_invoicenya = $key->no_invoice;
+      	}
+      	$insert_id = $this->Mgudang_model->keluar($id_produk,$ambil,$nomer_invoicenya);
+        $this->Mproduk_model->update_stok($id_produk,$jumlah_stok);
+        $this->Mgudang_model->update_di($idnya);
+        $row1 = count($this->Mgudang_model->cek_row_di($nomer_invoice));
+        $row2 = count($this->Mgudang_model->cek_row_kirim($nomer_invoice));
+        if ($row1 == $row2) {
+        	$this->minvoice_model->update_kirim($nomer_invoice);
+        }
+        // redirect(base_url("gudang/b_out"));
+  	}
 
     //Harian
     public function ha_invoice()
